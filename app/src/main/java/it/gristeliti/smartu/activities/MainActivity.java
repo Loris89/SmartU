@@ -343,9 +343,15 @@ public class MainActivity extends AppCompatActivity
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             // Da modificare perché non tutti gli elementi cliccabili nel navigation drawer
             // rappresentano una classe
-            Intent intent = new Intent(MainActivity.this, Classroom.class);
-            intent.putExtra("CLASSROOM_LABEL", navigation_drawer_elements[position]);
-            startActivity(intent);
+            if(navigation_drawer_elements[position].equals("Courses")) {
+                Intent intent = new Intent(MainActivity.this, Courses.class);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(MainActivity.this, Classroom.class);
+                intent.putExtra("CLASSROOM_LABEL", navigation_drawer_elements[position]);
+                startActivity(intent);
+            }
         }
     }
 

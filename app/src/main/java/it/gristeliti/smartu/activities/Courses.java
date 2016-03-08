@@ -1,7 +1,10 @@
 package it.gristeliti.smartu.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import it.gristeliti.smartu.R;
 
@@ -16,9 +19,24 @@ import it.gristeliti.smartu.R;
  */
 public class Courses extends AppCompatActivity {
 
+    public static final String COURSE_KEY = "COURSE";
+
+    private Button datamanagementButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses_subscription);
+        setContentView(R.layout.activity_courses);
+
+        datamanagementButton = (Button)findViewById(R.id.board_button);
+
+        datamanagementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Courses.this, Board.class);
+                intent.putExtra(COURSE_KEY, "Data Management");
+                startActivity(intent);
+            }
+        });
     }
 }
