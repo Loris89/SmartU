@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="it.gristeliti.smartu">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <!--
+    GET_ACCOUNTS is only required for GCM on devices running Android lower than
+    4.0.4. You may leave out this permission if you are targetting 4.0.4+.
+    -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!--
+    IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
+    to match your app's package name + ".permission.C2D_MESSAGE".
+    -->
+    <permission android:protectionLevel="signature"
+        android:name="it.gristeliti.smartu.permission.C2D_MESSAGE" />
+    <uses-permission android:name="it.gristeliti.smartu.permission.C2D_MESSAGE" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <application
+        android:name=".ParseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="gjDmHU8kCWGxlmcJP97iCfDWXrH5zxtBZRC8kDMM" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="chkyio09frhtLJ5stTAdsLVCwhEsxiwd7mV6faDP" />
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.SignupActivity"
+            android:label="@string/title_activity_signup"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.LoginRegActivity"
+            android:label="LoginRegActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.Courses">
+        </activity>
+        <activity
+            android:name=".activities.Classroom"
+            android:label="@string/title_activity_classroom"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Board"
+            android:label="@string/title_activity_notice_board"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name="com.estimote.sdk.service.BeaconService"
+            android:exported="false" />
+        <service
+            android:name=".services.HeartbeatService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service android:name="com.parse.PushService" />
+        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <!--
+                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
+                -->
+                <category android:name="it.gristeliti.smartu" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

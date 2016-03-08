@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.MainActivity"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    tools:showIn="@layout/app_bar_main">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:textSize="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/welcome_label"
+        style="@style/WelcomeText" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#689bb7"
+        android:id="@+id/statusLayout"
+        android:layout_below="@+id/hide_show_button"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentStart="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_alignTop="@+id/statusLayout"
+            android:layout_alignStart="@+id/statusLayout" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connection:"
+            android:id="@+id/connection_label"
+            android:layout_marginTop="5sp"
+            android:layout_marginLeft="5sp"
+            style="@style/StatusText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bluetooth:"
+            android:id="@+id/bluetooth_label"
+            android:layout_marginTop="5sp"
+            android:layout_marginLeft="5sp"
+            style="@style/StatusText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ranging:"
+            android:id="@+id/ranging_label"
+            android:layout_marginTop="5sp"
+            android:layout_marginLeft="5sp"
+            android:layout_marginBottom="5sp"
+            style="@style/StatusText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/statusLayout"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/hide_show_button"
+        android:text="Hide/Show Status"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:background="@drawable/buttonshape"
+        android:layout_marginLeft="5sp"
+        android:layout_marginTop="15sp"
+        style="@style/HideShowText"
+        android:layout_below="@+id/welcome_label"
+        android:layout_alignParentStart="true" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statusLayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:id="@+id/classroom_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Classroom"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5sp"
+                style="@style/MainData" />
+
+            <TextView
+                android:id="@+id/classroom_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/classroom_label"
+                android:gravity="center"
+                android:text="Test"
+                style="@style/MainText" />
+
+            <TextView
+                android:id="@+id/professor_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Professor"
+                android:layout_below="@+id/classroom_text"
+                android:layout_centerHorizontal="true"
+                style="@style/MainData" />
+
+            <TextView
+                android:id="@+id/professor_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Test"
+                android:layout_below="@id/professor_label"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                style="@style/MainText" />
+
+            <TextView
+                android:id="@+id/lecture_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Lecture"
+                android:layout_below="@id/professor_text"
+                android:layout_centerHorizontal="true"
+                style="@style/MainData" />
+
+            <TextView
+                android:id="@+id/lecture_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Test"
+                android:layout_below="@id/lecture_label"
+                android:gravity="center"
+                style="@style/MainText" />
+
+            <TextView
+                android:id="@+id/prev_lecture_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous Lecture"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/lecture_text"
+                style="@style/MainData" />
+
+            <TextView
+                android:id="@+id/prev_lecture_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Test"
+                android:gravity="center"
+                android:layout_below="@id/prev_lecture_label"
+                style="@style/MainText" />
+
+            <TextView
+                android:id="@+id/succ_lecture_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next Lecture"
+                android:gravity="center"
+                android:layout_below="@id/prev_lecture_text"
+                android:layout_centerHorizontal="true"
+                style="@style/MainData" />
+
+            <TextView
+                android:id="@+id/succ_lecture_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Test"
+                android:gravity="center"
+                android:layout_below="@id/succ_lecture_label"
+                style="@style/MainText" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
