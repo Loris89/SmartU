@@ -37,7 +37,7 @@ public class Board extends AppCompatActivity {
     private EditText insertText;
     private ListView listView;
 
-    private ProgressBar progressBar;
+    private ProgressBar progressBar;    // a cazzo di cane
 
     private String course;
 
