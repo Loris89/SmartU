@@ -1,6 +1,7 @@
 package it.gristeliti.smartu.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -31,11 +32,11 @@ import it.gristeliti.smartu.utils.BoardMessage;
 
 public class Board extends AppCompatActivity {
 
-    private Button tuaMamma;
     private Button sendButton;
     private EditText insertText;
     private ListView listView;
 
+    private String course;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,15 @@ public class Board extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
 
+        Intent intent = getIntent();
+        course = intent.getStringExtra(MyCourses.COURSE_KEY);
+
         insertText=(EditText)findViewById(R.id.editText);
         sendButton = (Button)findViewById(R.id.button);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                querySendMessage(insertText.getText().toString(), "Data Management", ParseUser.getCurrentUser().getObjectId());
+                querySendMessage(insertText.getText().toString(), course, ParseUser.getCurrentUser().getObjectId());
                 insertText.getText().clear();
             }
         });
@@ -65,7 +69,7 @@ public class Board extends AppCompatActivity {
 
         h.postDelayed(new Runnable() {
             public void run() {
-                queryUpdateBoard("Data Management");
+                queryUpdateBoard(course);
                 h.postDelayed(this, delay);
             }
         }, delay);

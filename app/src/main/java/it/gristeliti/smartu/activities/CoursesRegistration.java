@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,14 +32,16 @@ import it.gristeliti.smartu.utils.CourseNotFollowed;
 public class CoursesRegistration extends AppCompatActivity {
 
     private ListView coursesList;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses_registration);
 
-        coursesList = (ListView)findViewById(R.id.courses_listview);
+        progressBar = (ProgressBar)findViewById(R.id.progress_bar_registration);
 
+        coursesList = (ListView)findViewById(R.id.courses_listview);
         coursesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -49,6 +53,7 @@ public class CoursesRegistration extends AppCompatActivity {
     }
 
     private void registerToCourse(final String course) {
+        progressBar.setVisibility(View.VISIBLE);
         HashMap<String, String> map = new HashMap<>();
         map.put("getUserObjId", ParseUser.getCurrentUser().getObjectId());
         map.put("getCourseName", course);
@@ -74,6 +79,7 @@ public class CoursesRegistration extends AppCompatActivity {
                 if (parseException == null) {
                     Log.d("COURSE REGISTRATION", "Size: " + result.size());
                     extractCourses(result);
+                    progressBar.setVisibility(View.GONE);
                 } else {
                     Log.d("COURSE REGISTRATION", "Error querying courses");
                 }

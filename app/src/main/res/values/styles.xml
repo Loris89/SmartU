@@ -37,6 +37,13 @@
         <item name="android:typeface">monospace</item>
     </style>
 
+    <style name="StandardButton" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
     <style name="MainData" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>

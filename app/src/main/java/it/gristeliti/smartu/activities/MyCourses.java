@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.parse.FunctionCallback;
@@ -40,14 +41,19 @@ public class MyCourses extends AppCompatActivity {
 
     private ListView myCoursesListView;
     public static final String COURSE_KEY = "COURSE";
+    private ProgressBar progressBar;
+    private TextView messageTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycourses);
 
-        myCoursesListView = (ListView)findViewById(R.id.mycourses_listview);
+        messageTextView = (TextView)findViewById(R.id.warning_message_txt);
 
+        progressBar = (ProgressBar)findViewById(R.id.progress_bar_unregistration);
+
+        myCoursesListView = (ListView)findViewById(R.id.mycourses_listview);
         myCoursesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -68,7 +74,11 @@ public class MyCourses extends AppCompatActivity {
             @Override
             public void done(ArrayList<String> result, ParseException parseException) {
                 if (parseException == null) {
+                    if(result.size() == 0) {
+                        messageTextView.setVisibility(View.VISIBLE);
+                    }
                     extractCourses(result);
+                    progressBar.setVisibility(View.GONE);
                 } else {
                     Log.d("MY COURSE", "Error querying courses ");
                 }

@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mycourses_txt"
         android:text="Your Courses"
-        android:textSize="25dp"
+        android:textSize="30dp"
         android:textColor="@color/colorPrimary"
-        android:layout_gravity="center_horizontal" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar_unregistration"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:indeterminate="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/warning_message_txt"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="You are not registered to any course"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/mycourses_listview"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+        android:layout_below="@id/mycourses_txt"
+        android:layout_above="@id/warning_message_txt"/>
+</RelativeLayout>

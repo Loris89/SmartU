@@ -19,10 +19,20 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar_registration"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:indeterminate="true" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/courses_listview"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/courses_title" />
+        android:layout_below="@+id/courses_title"
+        android:layout_above="@id/progress_bar_registration"/>
+
 </RelativeLayout>

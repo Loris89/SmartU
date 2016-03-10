@@ -48,10 +48,10 @@ public class CourseActivity extends AppCompatActivity {
         boardButton = (Button)findViewById(R.id.board_button);
         unsubscribeButton = (Button)findViewById(R.id.unsubscribe_button);
 
-        courseName.setText("Name: "+course);
-
         Intent intent = getIntent();
         course = intent.getStringExtra(MyCourses.COURSE_KEY);
+
+        courseName.setText("Name: " + course);
 
         boardButton.setOnClickListener(new View.OnClickListener() {
             @Override
