@@ -227,8 +227,8 @@ public class MainActivity extends AppCompatActivity
             if (!mBluetoothAdapter.isEnabled()) {
                 bluetoothLabel.setText("Bluetooth: OFF");
                 // allows the user to turn-on the bluetooth
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                //Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                //startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
             else {
                 bluetoothLabel.setText("Bluetooth: ON");
@@ -343,8 +343,12 @@ public class MainActivity extends AppCompatActivity
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             // Da modificare perché non tutti gli elementi cliccabili nel navigation drawer
             // rappresentano una classe
-            if(navigation_drawer_elements[position].equals("Courses")) {
-                Intent intent = new Intent(MainActivity.this, Courses.class);
+            if(navigation_drawer_elements[position].equals("Register to Courses")) {
+                Intent intent = new Intent(MainActivity.this, CoursesRegistration.class);
+                startActivity(intent);
+            }
+            else if(navigation_drawer_elements[position].equals("My Courses")) {
+                Intent intent = new Intent(MainActivity.this, MyCourses.class);
                 startActivity(intent);
             }
             else {

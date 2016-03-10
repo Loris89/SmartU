@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="classrooms_array">
-        <item>Courses</item>
+        <item>Register to Courses</item>
+        <item>My Courses</item>
         <item>A1</item>
         <item>A2</item>
         <item>A3</item>

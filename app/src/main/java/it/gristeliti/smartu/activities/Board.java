@@ -1,29 +1,39 @@
 package it.gristeliti.smartu.activities;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 
 import it.gristeliti.smartu.R;
+import it.gristeliti.smartu.utils.BoardMessage;
 
 public class Board extends AppCompatActivity {
+
+    private Button sendButton;
+    private EditText insertText;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,36 +42,125 @@ public class Board extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ListView listView = (ListView)findViewById(R.id.listView);
-        String [] array = {"Antonio","Giovanni","Michele","Giuseppe", "Leonardo", "Alessandro"};
-        ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(this, R.layout.row, R.id.textViewRow, array);
-        listView.setAdapter(arrayAdapter);
+        listView = (ListView) findViewById(R.id.listView);
 
-        queryUpdateBoard("Data Management");
+        insertText=(EditText)findViewById(R.id.editText);
+        sendButton = (Button)findViewById(R.id.button);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                querySendMessage(insertText.getText().toString(), "Data Management", ParseUser.getCurrentUser().getObjectId());
+                insertText.getText().clear();
+            }
+        });
+
+        /*Alessio: Dobbiamo studiare come fare il refreshing della Board. Se inserire un timer che fa il refresh
+        * ogni X secondi, o trovare il modo di ricevere un evento da parse ogni volta che viene inserito un
+        * messaggio nuovo(soluzione corretta ma richiede più tempo)*/
+
+        final Handler h = new Handler();
+        final int delay = 5000; //milliseconds
+
+        h.postDelayed(new Runnable() {
+            public void run() {
+                queryUpdateBoard("Data Management");
+                h.postDelayed(this, delay);
+            }
+        }, delay);
+
     }
 
     private void queryUpdateBoard(String course) {
         HashMap<String, String> map = new HashMap<>();
         map.put("getName", course);
-        ParseCloud.callFunctionInBackground("getMessages", map, new FunctionCallback<HashMap<ParseObject,String>>() {
+        final ArrayList<ParseObject> messages=new ArrayList<ParseObject>();
+        ParseCloud.callFunctionInBackground("getMessages", map, new FunctionCallback<ArrayList<String>>() {
             @Override
-            public void done(HashMap<ParseObject,String> objects, ParseException parseException) {
+            public void done(ArrayList<String> result, ParseException parseException) {
                 if (parseException == null) {
-                    Log.d("BOARD", "update ok");
-                    String result = "";
-                    Iterator it = objects.entrySet().iterator();
-                    while (it.hasNext()) {
-                        Map.Entry pair = (Map.Entry)it.next();
-                        it.remove(); // avoids a ConcurrentModificationException
-                        result+=pair.getKey() + " = " + pair.getValue()+"|||||";
-                    }
-                    Log.d("BOARD", result);
+                    /*ListView listView = (ListView) findViewById(R.id.listView);
+                    String[] array = result.toArray(new String[result.size()]);
+                    ArrayAdapter<String> arrayAdapter =
+                            new ArrayAdapter<String>(Board.this, R.layout.board_row, R.id.textViewRow, array);
+                    listView.setAdapter(arrayAdapter);*/
+                    extractMessages(result);
                 } else {
                     //Toast.makeText(Board.this, "Error board", Toast.LENGTH_SHORT).show();
                     Log.d("BOARD", parseException.getMessage());
                 }
             }
         });
+    }
+
+    private void extractMessages(ArrayList<String> messages) {
+        List<BoardMessage> boardMessageList = new ArrayList<>();
+        for(String mex : messages)  {
+            String[] splitted = mex.split(";");
+            BoardMessage boardMessage = new BoardMessage(splitted[0], splitted[1], splitted[2]);
+            boardMessageList.add(boardMessage);
+        }
+        listView.setAdapter(new ListAdapter(Board.this, boardMessageList));
+    }
+
+    private void querySendMessage(String message, String course, String userObjId) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("getCourseName", course);
+        map.put("getMessage", message);
+        map.put("getUserObjId", userObjId);
+        ParseCloud.callFunctionInBackground("sendMessage", map, new FunctionCallback<String>() {
+            @Override
+            public void done(String result, ParseException parseException) {
+                if (parseException == null) {
+                } else {
+                    Toast.makeText(Board.this, parseException.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private static class ListAdapter extends ArrayAdapter<BoardMessage> {
+
+        public ListAdapter(Context context, List<BoardMessage> items) {
+            super(context, R.layout.board_row, items);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+
+            if(convertView == null) {
+                // inflate the GridView item layout
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(R.layout.board_row, parent, false);
+
+                // initialize the view holder
+                viewHolder = new ViewHolder();
+                viewHolder.nickname = (TextView) convertView.findViewById(R.id.nickname_txt);
+                viewHolder.message = (TextView) convertView.findViewById(R.id.message_txt);
+                viewHolder.date = (TextView) convertView.findViewById(R.id.date_txt);
+                convertView.setTag(viewHolder);
+            } else {
+                // recycle the already inflated view
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            // update the item view
+            BoardMessage item = getItem(position);
+            viewHolder.nickname.setText(item.getNickname());
+            viewHolder.message.setText(item.getMessage());
+            viewHolder.date.setText(item.getDate());
+
+            return convertView;
+        }
+
+        /**
+         * The view holder design pattern prevents using findViewById()
+         * repeatedly in the getView() method of the adapter.
+         */
+        private static class ViewHolder {
+            TextView nickname;
+            TextView message;
+            TextView date;
+        }
     }
 }
