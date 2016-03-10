@@ -31,9 +31,11 @@ import it.gristeliti.smartu.utils.BoardMessage;
 
 public class Board extends AppCompatActivity {
 
+    private Button tuaMamma;
     private Button sendButton;
     private EditText insertText;
     private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
