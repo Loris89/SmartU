@@ -1,5 +1,6 @@
 package it.gristeliti.smartu.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -144,6 +145,9 @@ public class SignupActivity extends AppCompatActivity {
                                     "Successfully Signed up, please log in.",
                                     Toast.LENGTH_LONG).show();
                             // torna alla schemata di login
+                            Intent intent = new Intent(SignupActivity.this, LoginRegActivity.class);
+                            intent.putExtra("EMAIL", emailtxt);
+                            startActivity(intent);
                             finish();
                         } else {
                             Toast.makeText(getApplicationContext(),

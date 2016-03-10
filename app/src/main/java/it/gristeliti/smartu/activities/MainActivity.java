@@ -29,6 +29,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.estimote.sdk.eddystone.Eddystone;
+import com.estimote.sdk.eddystone.EddystoneTelemetry;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParsePushBroadcastReceiver;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity
     private TextView professorTextView;
     private TextView noiseTextView;
 
+
     // buttons
     private Button hideShowButton;
 
@@ -107,7 +110,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         // VIEW'S STUFF
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -318,6 +320,13 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if (id == R.id.action_logout) {
+            ParseUser.logOut();
+            Intent intent = new Intent(MainActivity.this, LoginRegActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

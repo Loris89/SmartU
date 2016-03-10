@@ -26,4 +26,5 @@
     <string name="title_activity_notice_board">NoticeBoard</string>
     <string name="title_activity_board">Board</string>
     <string name="title_activity_course">CourseActivity</string>
+    <string name="logout_string">LogOut</string>
 </resources>

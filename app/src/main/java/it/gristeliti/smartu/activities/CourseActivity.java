@@ -52,6 +52,7 @@ public class CourseActivity extends AppCompatActivity {
         course = intent.getStringExtra(MyCourses.COURSE_KEY);
 
         courseName.setText("Name: " + course);
+        setProfessorName();
 
         boardButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +84,21 @@ public class CourseActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Log.d("COURSE UNSUBSCRIPTION", parseException.getMessage());
+                }
+            }
+        });
+    }
+
+    private void setProfessorName() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("getCourseName", course);
+        ParseCloud.callFunctionInBackground("getProfessorFromCourse", map, new FunctionCallback<String>() {
+            @Override
+            public void done(String result, ParseException parseException) {
+                if (parseException == null) {
+                    professorName.setText("Professor: " + result);
+                } else {
+                    Log.d("COURSE NOT FOUND", parseException.getMessage());
                 }
             }
         });

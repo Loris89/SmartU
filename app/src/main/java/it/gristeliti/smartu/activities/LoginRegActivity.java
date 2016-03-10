@@ -117,13 +117,20 @@ public class LoginRegActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+        Intent intentEmail = getIntent();
+        emailTxt = intentEmail.getStringExtra("EMAIL");
+        if(emailTxt != null) {
+            passwordEditText.getText().clear();
+            emailEditText.setText(emailTxt);
+        }
+
         // check if the user is already logged in Parse
-        ParseUser user = ParseUser.getCurrentUser();
+        /*ParseUser user = ParseUser.getCurrentUser();
         if (user.getSessionToken() != null) {
             Intent intent = new Intent(LoginRegActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
     }
 
     @Override

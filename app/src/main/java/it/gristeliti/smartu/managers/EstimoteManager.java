@@ -8,6 +8,8 @@ import android.util.Log;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
+import com.estimote.sdk.eddystone.Eddystone;
+import com.estimote.sdk.eddystone.EddystoneTelemetry;
 import com.parse.FunctionCallback;
 import com.parse.GetCallback;
 import com.parse.ParseCloud;
@@ -162,36 +164,6 @@ public class EstimoteManager {
         }
     };
 
-    /*private static void queryClassroom(String UUID) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Classroom");
-        query.whereEqualTo("BeaconUUID", UUID);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject object, ParseException parseException) {
-                if (parseException == null) {
-                    String result = null;
-                    try {
-                        result = object.getString("Label");
-                    } catch (Exception e1) {
-                        System.out.println("There is no result");
-                    }
-
-                    if (result != null) {
-                        Log.i("Classroom", "Retrieved " + result);
-
-                        // add the student to the new classroom
-                        //classroom.setClassroom(result);
-                        //QueryUtils.sendNotification(result);
-                        Intent intent = new Intent(CLASSROOM_CHANGED);
-                        intent.putExtra("Classroom", result);
-                        currentContext.sendBroadcast(intent);
-                    }
-                } else {
-                    Log.e("queryClassroom error: ", parseException.getMessage());
-                }
-            }
-        });
-    }*/
 
     private static void queryClassroom(String UUID) {
         HashMap<String, String> map = new HashMap<>();
