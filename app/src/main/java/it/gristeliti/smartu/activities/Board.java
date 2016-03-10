@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,12 @@ public class Board extends AppCompatActivity {
     private EditText insertText;
     private ListView listView;
 
+    private ProgressBar progressBar;
+
     private String course;
+
+    private final Handler h = new Handler();
+    private final int delay = 10000; //milliseconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,8 @@ public class Board extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         listView = (ListView) findViewById(R.id.listView);
+
+        progressBar = (ProgressBar)findViewById(R.id.progress_bar_board);
 
         Intent intent = getIntent();
         course = intent.getStringExtra(MyCourses.COURSE_KEY);
@@ -59,13 +67,12 @@ public class Board extends AppCompatActivity {
                 insertText.getText().clear();
             }
         });
+    }
 
-        /*Alessio: Dobbiamo studiare come fare il refreshing della Board. Se inserire un timer che fa il refresh
-        * ogni X secondi, o trovare il modo di ricevere un evento da parse ogni volta che viene inserito un
-        * messaggio nuovo(soluzione corretta ma richiede più tempo)*/
+    protected void onStart() {
+        super.onStart();
 
-        final Handler h = new Handler();
-        final int delay = 5000; //milliseconds
+        queryUpdateBoard(course);
 
         h.postDelayed(new Runnable() {
             public void run() {
@@ -73,7 +80,10 @@ public class Board extends AppCompatActivity {
                 h.postDelayed(this, delay);
             }
         }, delay);
+    }
 
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void queryUpdateBoard(String course) {
@@ -89,6 +99,7 @@ public class Board extends AppCompatActivity {
                     ArrayAdapter<String> arrayAdapter =
                             new ArrayAdapter<String>(Board.this, R.layout.board_row, R.id.textViewRow, array);
                     listView.setAdapter(arrayAdapter);*/
+                    progressBar.setVisibility(View.GONE);
                     extractMessages(result);
                 } else {
                     //Toast.makeText(Board.this, "Error board", Toast.LENGTH_SHORT).show();

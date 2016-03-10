@@ -47,4 +47,12 @@
         android:layout_above="@+id/editText"
         android:layout_below="@+id/textView2" />
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar_board"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="true" />
+
 </RelativeLayout>
