@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity
     private TextView rangingLabel;
 
     private TextView classroomTextView;
-    private TextView studentsTextView;
-    private TextView lectureTextView;
     private TextView professorTextView;
-    private TextView noiseTextView;
-
+    private TextView lectureTextView;
+    private TextView previousLectureTextView;
+    private TextView nextLectureTextView;
+    private TextView studentsTextView;
 
     // buttons
     private Button hideShowButton;
@@ -110,7 +110,15 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // VIEW'S STUFF
+
+        classroomTextView = (TextView)findViewById(R.id.classroom_text);
+        professorTextView = (TextView)findViewById(R.id.professor_text);
+        lectureTextView   = (TextView)findViewById(R.id.lecture_text);
+        previousLectureTextView = (TextView)findViewById(R.id.prev_lecture_text);
+        nextLectureTextView = (TextView)findViewById(R.id.succ_lecture_text);
+        studentsTextView = (TextView)findViewById(R.id.students_text);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -197,12 +205,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /*private void startTimer() {
+    private void startTimer() {
         // schedule task
         if(mDataTimer != null) {
             mDataTimer.scheduleAtFixedRate(new QueriesTimerTask(), 0, QUERIES_INTERVAL);
         }
-    }*/
+    }
 
     private void stopTimer() {
         if (mDataTimer != null) {
@@ -229,8 +237,8 @@ public class MainActivity extends AppCompatActivity
             if (!mBluetoothAdapter.isEnabled()) {
                 bluetoothLabel.setText("Bluetooth: OFF");
                 // allows the user to turn-on the bluetooth
-                //Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                //startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             }
             else {
                 bluetoothLabel.setText("Bluetooth: ON");
@@ -275,7 +283,7 @@ public class MainActivity extends AppCompatActivity
         stopService(new Intent(MainActivity.this, HeartbeatService.class));
 
         // log-out from the system
-        //ParseUser.logOut();
+        ParseUser.logOut();
     }
 
     @Override
@@ -380,7 +388,7 @@ public class MainActivity extends AppCompatActivity
                 public void run() {
                     // queries to parse
                     QueriesManager.queryNumberOfStudents(classroom, studentsTextView);
-                    QueriesManager.queryAverageNoise(classroom, noiseTextView);
+                    //QueriesManager.queryAverageNoise(classroom, noiseTextView);
                     QueriesManager.queryLecture(classroom, lectureTextView);
                 }
             });
@@ -417,7 +425,7 @@ public class MainActivity extends AppCompatActivity
                     // start/restart "things"
                     EstimoteManager.create(MainActivity.this);
                     rangingLabel.setText("Ranging: ON");
-                    //startTimer();
+                    startTimer();
                 }
             }
 
@@ -435,7 +443,7 @@ public class MainActivity extends AppCompatActivity
                     connectionLabel.setText("Connection: " + activeNetInfo.getTypeName());
                     // start/restart services
                     EstimoteManager.create(MainActivity.this);
-                    //startTimer();
+                    startTimer();
                 }
             }
 
@@ -447,7 +455,7 @@ public class MainActivity extends AppCompatActivity
                 classroom = intent.getStringExtra(EstimoteManager.CLASSROOM_CHANGED);
                 Log.d("CLASSROOM", classroom);
                 // update classroom label
-                //startTimer();
+                startTimer();
                 serviceIntent.putExtra(EstimoteManager.CLASSROOM_CHANGED, classroom);
                 startService(serviceIntent);
             }
