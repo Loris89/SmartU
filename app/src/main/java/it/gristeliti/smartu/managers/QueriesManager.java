@@ -23,6 +23,7 @@ public class QueriesManager {
                     textView.setText("Lecture: " + result);
                 } else {
                     //Toast.makeText(Classroom.this, "Errore query lezione corrente", Toast.LENGTH_LONG).show();
+                    textView.setText("Lecture: " + parseException.getMessage());
                 }
             }
         });
