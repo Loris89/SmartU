@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -29,6 +30,8 @@ public class LoginRegActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
 
+    private ProgressBar progressBar;
+
     private String emailTxt;
     private String passwordTxt;
 
@@ -43,7 +46,9 @@ public class LoginRegActivity extends AppCompatActivity {
         emailEditText = (EditText)findViewById(R.id.emailLoginReg);
         passwordEditText = (EditText)findViewById(R.id.passwordLoginReg);
         loginButton = (Button)findViewById(R.id.login);
-        signupButton = (Button)this.findViewById(R.id.signup);
+        signupButton = (Button)findViewById(R.id.signup);
+
+        progressBar = (ProgressBar)findViewById(R.id.loginreg_progressbar);
 
         // SHARED PREFERENCES
 
@@ -62,6 +67,8 @@ public class LoginRegActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressBar.setVisibility(View.VISIBLE);
 
                 // check if the user has filled the form
                 if(!checkValidation()) {
@@ -83,10 +90,12 @@ public class LoginRegActivity extends AppCompatActivity {
                 ParseUser.logInInBackground(emailTxt, passwordTxt, new LogInCallback() {
                     public void done(ParseUser user, ParseException e) {
                         if (user != null) {
+                            progressBar.setVisibility(View.GONE);
                             Intent intent = new Intent(LoginRegActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(getApplicationContext(), "No such user exist, please signup",
                                     Toast.LENGTH_LONG).show();
                         }
