@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.parse.ParseException;
@@ -40,6 +41,8 @@ public class SignupActivity extends AppCompatActivity {
     private EditText surname;
     private EditText matricula;
 
+    private ProgressBar progressBar;
+
     private String nicknametxt;
     private String passwordtxt;
     private String emailtxt;
@@ -64,6 +67,8 @@ public class SignupActivity extends AppCompatActivity {
         surname = (EditText) this.findViewById(R.id.surname_edittext);
         matricula = (EditText) this.findViewById(R.id.matricula_edittext);
         password = (EditText) this.findViewById(R.id.password_edittext);
+
+        progressBar = (ProgressBar)findViewById(R.id.progressbar_signup);
 
         // SHARED PREFERENCES
 
@@ -93,6 +98,8 @@ public class SignupActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressBar.setVisibility(View.VISIBLE);
 
                 // check if the user has filled the form
                 if (!checkValidation()) {
@@ -140,6 +147,7 @@ public class SignupActivity extends AppCompatActivity {
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
+                            progressBar.setVisibility(View.GONE);
                             // Show a simple Toast message upon successful registration
                             Toast.makeText(getApplicationContext(),
                                     "Successfully Signed up, please log in.",
@@ -150,6 +158,7 @@ public class SignupActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         } else {
+                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(getApplicationContext(),
                                     e.toString(), Toast.LENGTH_LONG)
                                     .show();
