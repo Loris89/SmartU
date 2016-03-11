@@ -9,15 +9,26 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
     tools:context=".activities.SignupActivity"
     tools:showIn="@layout/signup">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/signup_txt"
+        android:text="SIGNUP"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="35sp"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/nickname_edittext"
         android:layout_gravity="center_horizontal"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/signup_txt"
         android:layout_marginTop="@dimen/signup_margin_top"
         android:hint="@string/Nickname" />
 
@@ -75,6 +86,16 @@
         android:layout_below="@+id/surname_edittext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/signup_button_margin_top"
+        style="@style/StandardButton"
+        android:background="@drawable/buttonshape"
         android:text="@string/SignupBtn" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressbar_signup"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>
