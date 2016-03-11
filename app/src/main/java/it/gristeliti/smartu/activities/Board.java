@@ -37,7 +37,7 @@ public class Board extends AppCompatActivity {
     private EditText insertText;
     private ListView listView;
 
-    private ProgressBar progressBar;    // a cazzo di cane
+    private ProgressBar progressBar;
 
     private String course;
 
@@ -94,15 +94,9 @@ public class Board extends AppCompatActivity {
             @Override
             public void done(ArrayList<String> result, ParseException parseException) {
                 if (parseException == null) {
-                    /*ListView listView = (ListView) findViewById(R.id.listView);
-                    String[] array = result.toArray(new String[result.size()]);
-                    ArrayAdapter<String> arrayAdapter =
-                            new ArrayAdapter<String>(Board.this, R.layout.board_row, R.id.textViewRow, array);
-                    listView.setAdapter(arrayAdapter);*/
                     progressBar.setVisibility(View.GONE);
                     extractMessages(result);
                 } else {
-                    //Toast.makeText(Board.this, "Error board", Toast.LENGTH_SHORT).show();
                     Log.d("BOARD", parseException.getMessage());
                 }
             }
