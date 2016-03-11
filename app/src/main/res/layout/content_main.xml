@@ -26,15 +26,13 @@
         android:background="#689bb7"
         android:id="@+id/statusLayout"
         android:layout_below="@+id/hide_show_button"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentStart="true">
+        android:layout_marginTop="5dp">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
-            android:layout_alignTop="@+id/statusLayout"
-            android:layout_alignStart="@+id/statusLayout" />
+            android:layout_alignTop="@+id/statusLayout" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,8 +80,7 @@
         android:layout_marginLeft="5sp"
         android:layout_marginTop="15sp"
         style="@style/HideShowText"
-        android:layout_below="@+id/welcome_label"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/welcome_label" />
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -93,8 +90,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentStart="true">
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/classroom_label"
@@ -111,7 +107,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/classroom_label"
                 android:gravity="center"
-                android:text="Test"
                 style="@style/MainText" />
 
             <TextView
@@ -127,7 +122,6 @@
                 android:id="@+id/professor_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Test"
                 android:layout_below="@id/professor_label"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
@@ -146,7 +140,6 @@
                 android:id="@+id/lecture_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Test"
                 android:layout_below="@id/lecture_label"
                 android:gravity="center"
                 style="@style/MainText" />
@@ -164,7 +157,6 @@
                 android:id="@+id/prev_lecture_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Test"
                 android:gravity="center"
                 android:layout_below="@id/prev_lecture_label"
                 style="@style/MainText" />
@@ -183,13 +175,28 @@
                 android:id="@+id/succ_lecture_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Test"
                 android:gravity="center"
                 android:layout_below="@id/succ_lecture_label"
                 style="@style/MainText" />
 
+            <TextView
+                android:id="@+id/students_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Students"
+                android:gravity="center"
+                android:layout_below="@id/succ_lecture_text"
+                android:layout_centerHorizontal="true"
+                style="@style/MainData" />
+
+            <TextView
+                android:id="@+id/students_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@id/students_label"
+                style="@style/MainText" />
+
         </RelativeLayout>
-
     </ScrollView>
-
 </RelativeLayout>
