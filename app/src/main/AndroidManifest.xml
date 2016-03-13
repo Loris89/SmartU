@@ -82,7 +82,7 @@
         <service android:name="com.parse.PushService" />
 
         <receiver
-            android:name="com.parse.ParsePushBroadcastReceiver"
+            android:name=".activities.PushReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
@@ -101,11 +101,10 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activities.CoursesRegistration" />
         <activity
             android:name=".activities.CourseActivity"
             android:label="@string/title_activity_course"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
