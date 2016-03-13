@@ -29,11 +29,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.estimote.sdk.eddystone.Eddystone;
-import com.estimote.sdk.eddystone.EddystoneTelemetry;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParsePushBroadcastReceiver;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
 import java.util.Timer;
@@ -51,8 +49,6 @@ public class MainActivity extends AppCompatActivity
      * Constant value for the bluetooth activation request
      */
     private static final int REQUEST_ENABLE_BT = 1234;
-
-    private static final int QUERIES_INTERVAL = 5000;
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -79,13 +75,6 @@ public class MainActivity extends AppCompatActivity
     // network and bluetooth BroadcastReceiver
     private MyBroadcastReceiver broadcastReceiver;
     private boolean isBroadcastReceiverRegistered;
-
-    private final Handler mainDataHandler = new Handler();
-
-    /**
-     * Timer for schedule the queries at a fixed time rate
-     */
-    private Timer mDataTimer = null;
 
     // intent filter for BroadcastReceiver
     private IntentFilter intentFilter;
@@ -195,32 +184,15 @@ public class MainActivity extends AppCompatActivity
         // get data from intent (coming from SignupActivity or LoginRegActivity)
         Intent dataIntent = getIntent();
         isProfessor = dataIntent.getBooleanExtra("IS_PROFESSOR", false); // false è un valore di default
-
-        // cancel if already existed
-        if (mDataTimer != null) {
-            mDataTimer.cancel();
-        } else {
-            // recreate new
-            mDataTimer = new Timer();
-        }
-    }
-
-    private void startTimer() {
-        // schedule task
-        if(mDataTimer != null) {
-            mDataTimer.scheduleAtFixedRate(new QueriesTimerTask(), 0, QUERIES_INTERVAL);
-        }
-    }
-
-    private void stopTimer() {
-        if (mDataTimer != null) {
-            mDataTimer.cancel();
-        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        ParseInstallation currentInstall = ParseInstallation.getCurrentInstallation();
+        currentInstall.put("Owner", ParseUser.getCurrentUser());
+        currentInstall.saveInBackground();
     }
 
     @Override
@@ -377,25 +349,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Queries Parse to update the data shown in the UI
-     */
-    private class QueriesTimerTask extends TimerTask {
-        @Override
-        public void run() {
-            // run on another thread
-            mainDataHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    // queries to parse
-                    QueriesManager.queryNumberOfStudents(classroom, studentsTextView);
-                    //QueriesManager.queryAverageNoise(classroom, noiseTextView);
-                    QueriesManager.queryLecture(classroom, lectureTextView);
-                }
-            });
-        }
-    }
-
-    /**
      * Checks Internet Connection and Bluetooth
      * Updates MainActivity UI
      * Stops/Starts Services according to connection state
@@ -417,7 +370,6 @@ public class MainActivity extends AppCompatActivity
                     // stop "things"
                     EstimoteManager.stop();
                     rangingLabel.setText("Ranging: OFF");
-                    stopTimer();
                     stopService(new Intent(MainActivity.this, HeartbeatService.class));
                 }
                 else if(intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1) == BluetoothAdapter.STATE_ON) {
@@ -425,7 +377,6 @@ public class MainActivity extends AppCompatActivity
                     // start/restart "things"
                     EstimoteManager.create(MainActivity.this);
                     rangingLabel.setText("Ranging: ON");
-                    startTimer();
                 }
             }
 
@@ -438,12 +389,10 @@ public class MainActivity extends AppCompatActivity
                     // stop services
                     EstimoteManager.stop();
                     stopService(new Intent(MainActivity.this, HeartbeatService.class));
-                    stopTimer();
                 } else {
                     connectionLabel.setText("Connection: " + activeNetInfo.getTypeName());
                     // start/restart services
                     EstimoteManager.create(MainActivity.this);
-                    startTimer();
                 }
             }
 
@@ -455,7 +404,7 @@ public class MainActivity extends AppCompatActivity
                 classroom = intent.getStringExtra(EstimoteManager.CLASSROOM_CHANGED);
                 Log.d("CLASSROOM", classroom);
                 // update classroom label
-                startTimer();
+                classroomTextView.setText(classroom);
                 serviceIntent.putExtra(EstimoteManager.CLASSROOM_CHANGED, classroom);
                 startService(serviceIntent);
             }
@@ -464,26 +413,7 @@ public class MainActivity extends AppCompatActivity
                 // stop sending Heartbeat
                 stopService(new Intent(MainActivity.this, HeartbeatService.class));
                 // clear textviews..
-
-                // stop timer
-                stopTimer();
             }
-        }
-    }
-
-    /**
-     * Questo receiver filtra le push notifications che arrivano
-     * da Parse
-     */
-    private class PushReceiver extends ParsePushBroadcastReceiver {
-
-        public PushReceiver() {
-
-        }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            throw new UnsupportedOperationException("Not yet implemented");
         }
     }
 }
