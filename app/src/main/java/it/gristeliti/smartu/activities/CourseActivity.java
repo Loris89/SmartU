@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.gristeliti.smartu.R;
+import it.gristeliti.smartu.managers.QueriesManager;
 
 public class CourseActivity extends AppCompatActivity {
 
@@ -90,7 +91,7 @@ public class CourseActivity extends AppCompatActivity {
     }
 
     private void setProfessorName() {
-        HashMap<String, String> map = new HashMap<>();
+        /*HashMap<String, String> map = new HashMap<>();
         map.put("getCourseName", course);
         ParseCloud.callFunctionInBackground("getProfessorFromCourse", map, new FunctionCallback<String>() {
             @Override
@@ -101,6 +102,7 @@ public class CourseActivity extends AppCompatActivity {
                     Log.d("COURSE NOT FOUND", parseException.getMessage());
                 }
             }
-        });
+        });*/
+        QueriesManager.queryProfessor(course, professorName);
     }
 }
