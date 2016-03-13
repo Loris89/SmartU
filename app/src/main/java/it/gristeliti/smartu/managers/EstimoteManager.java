@@ -82,7 +82,7 @@ public class EstimoteManager {
             beaconManager = new BeaconManager(currentContext);
 
             // We want the beacons heartbeat to be set at one second.
-            beaconManager.setBackgroundScanPeriod(TimeUnit.SECONDS.toMillis(1), 0);
+            beaconManager.setBackgroundScanPeriod(TimeUnit.SECONDS.toMillis(5), 0);
 
             // beacons ranging
             beaconManager.setRangingListener(new BeaconManager.RangingListener() {
@@ -156,14 +156,10 @@ public class EstimoteManager {
 
         @Override
         public void run() {
-            // simply send a broadcast intent that will be received
-            // by the main activity that will clear its UI
-            // and will stop the HeartbeatService
             Intent intent = new Intent(CLEAR_ACTION);
             currentContext.sendBroadcast(intent);
         }
     };
-
 
     private static void queryClassroom(String UUID) {
         HashMap<String, String> map = new HashMap<>();
