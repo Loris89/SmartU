@@ -34,7 +34,5 @@
                 android:layout_weight="1" />-->
         </LinearLayout>
     </android.support.design.widget.NavigationView>
-    <!--app:headerLayout="@layout/nav_header_main"
-    app:menu="@menu/activity_main_drawer" />-->
 
 </android.support.v4.widget.DrawerLayout>

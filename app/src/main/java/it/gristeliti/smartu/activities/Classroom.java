@@ -2,21 +2,11 @@ package it.gristeliti.smartu.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.parse.FunctionCallback;
-import com.parse.ParseCloud;
-import com.parse.ParseException;
-
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import it.gristeliti.smartu.R;
 import it.gristeliti.smartu.managers.QueriesManager;
@@ -48,7 +38,7 @@ public class Classroom extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         label = (TextView)findViewById(R.id.classroom_label);
-        lecture = (TextView)findViewById(R.id.lecture_label);
+        lecture = (TextView)findViewById(R.id.lecture_classroom_txt);
         professor = (TextView)findViewById(R.id.professor_classroom_txt);
         students = (TextView)findViewById(R.id.students_classroom_txt);
         seats = (TextView)findViewById(R.id.seats_classroom_txt);
@@ -68,8 +58,9 @@ public class Classroom extends AppCompatActivity {
     }
 
     private void update() {
-        QueriesManager.queryLecture(classroom_name, lecture);
-        //QueriesManager.queryProfessor(lecture, professor);
+        QueriesManager.queryCourse(classroom_name, professor, lecture);
+        QueriesManager.queryNumberOfStudents(classroom_name, students);
+        QueriesManager.querySeats(classroom_name, seats);
     }
 
     public void onStart() {

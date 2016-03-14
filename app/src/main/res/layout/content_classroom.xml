@@ -62,5 +62,4 @@
         android:layout_below="@+id/students_classroom_txt"
         android:layout_centerHorizontal="true" />
 
-
 </RelativeLayout>
