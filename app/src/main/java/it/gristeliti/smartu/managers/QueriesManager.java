@@ -69,9 +69,9 @@ public class QueriesManager {
             @Override
             public void done(Integer result, ParseException parseException) {
                 if (parseException == null) {
-                    textView.setText("Seats: " + result);
+                    textView.setText(String.valueOf(result));
                 } else {
-                    textView.setText("Seats: Error");
+                    textView.setText("Error");
                     Log.e("Queries Manager: ", parseException.getMessage());
                 }
             }
