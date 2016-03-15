@@ -39,7 +39,7 @@ public class QueriesManager {
                 if (parseException == null) {
                     textView.setText(result);
                 } else {
-                    textView.setText("No lecture found");
+                    textView.setText("No lecture");
                     Log.e("Queries Manager: ", parseException.getMessage());
                 }
             }
@@ -55,7 +55,7 @@ public class QueriesManager {
                 if (parseException == null) {
                     textView.setText(result);
                 } else {
-                    textView.setText("No lecture found");
+                    textView.setText("No lecture");
                     Log.e("Queries Manager: ", parseException.getMessage());
                 }
             }
@@ -87,11 +87,11 @@ public class QueriesManager {
                 if (parseException == null) {
                     ParseUser professor = result.getParseUser("Professor");
                     try {
-                        professorTextView.setText("Professor: " + professor.fetchIfNeeded().getString("surname"));
+                        professorTextView.setText(professor.fetchIfNeeded().getString("surname"));
                     } catch (ParseException e) {
                         Log.e("Queries Manager", e.getMessage());
                     }
-                    courseTextView.setText("Lecture: " + result.getString("name"));
+                    courseTextView.setText(result.getString("name"));
                 } else {
                     Log.e("Queries Manager", parseException.getMessage());
                 }
@@ -122,9 +122,9 @@ public class QueriesManager {
             @Override
             public void done(Integer result, ParseException parseException) {
                 if (parseException == null) {
-                    textView.setText("Students: " + String.valueOf(result));
+                    textView.setText(String.valueOf(result));
                 } else {
-                    textView.setText("Students: Error");
+                    textView.setText("Error");
                     Log.e("Queries Manager", parseException.getMessage());
                 }
             }
