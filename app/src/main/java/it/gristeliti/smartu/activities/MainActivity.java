@@ -12,6 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -27,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.parse.LogInCallback;
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private LinearLayout statusLayout;
     private ListView navigationDrawerListView;
+
+    private FloatingActionButton fab;
 
     // TextViews
     private TextView connectionLabel;
@@ -108,6 +112,14 @@ public class MainActivity extends AppCompatActivity
         previousLectureTextView = (TextView)findViewById(R.id.prev_lecture_text);
         nextLectureTextView = (TextView)findViewById(R.id.succ_lecture_text);
         studentsTextView = (TextView)findViewById(R.id.students_text);
+
+        fab = (FloatingActionButton)findViewById(R.id.fab_main);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                update();
+            }
+        });
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -193,7 +205,6 @@ public class MainActivity extends AppCompatActivity
         ParseInstallation currentInstall = ParseInstallation.getCurrentInstallation();
         currentInstall.put("Owner", ParseUser.getCurrentUser());
         currentInstall.saveInBackground();
-        
     }
 
     @Override
@@ -319,7 +330,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        // QUESTO IN REALTA' NON HO CAPITO A CHE CAZZO SERVE
+        // QUESTO IN REALTA' NON HO CAPITO A CHE SERVE
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -347,6 +358,13 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         }
+    }
+
+    private void update() {
+        QueriesManager.queryCourse(classroom, professorTextView, lectureTextView);
+        QueriesManager.queryNumberOfStudents(classroom, studentsTextView);
+        QueriesManager.queryPrevoiusLecture(classroom, previousLectureTextView);
+        QueriesManager.queryNextLecture(classroom, nextLectureTextView);
     }
 
     /**
@@ -398,14 +416,13 @@ public class MainActivity extends AppCompatActivity
             }
 
             if(action.equals(EstimoteManager.CLASSROOM_CHANGED_ACTION)) {
-                // NON SO PROPRIO SICURO DI STO "PASTROCCHIO"
                 // stop and restart the HeartbeatService with new data
                 stopService(new Intent(MainActivity.this, HeartbeatService.class));
                 Intent serviceIntent = new Intent(MainActivity.this, HeartbeatService.class);
                 classroom = intent.getStringExtra(EstimoteManager.CLASSROOM_CHANGED);
-                Log.d("CLASSROOM", classroom);
-                // update classroom label
+                // update textviews
                 classroomTextView.setText(classroom);
+                update();
                 serviceIntent.putExtra(EstimoteManager.CLASSROOM_CHANGED, classroom);
                 startService(serviceIntent);
             }
@@ -414,6 +431,12 @@ public class MainActivity extends AppCompatActivity
                 // stop sending Heartbeat
                 stopService(new Intent(MainActivity.this, HeartbeatService.class));
                 // clear textviews..
+                classroomTextView.setText("None");
+                professorTextView.setText("None");
+                lectureTextView.setText("None");
+                previousLectureTextView.setText("None");
+                nextLectureTextView.setText("None");
+                studentsTextView.setText("0");
             }
         }
     }
