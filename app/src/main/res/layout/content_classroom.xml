@@ -28,38 +28,82 @@
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:text="Lecture: "
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/classroom_label"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Professor: "
         android:id="@+id/professor_classroom_txt"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:textSize="25dp"
         android:layout_below="@+id/lecture_classroom_txt"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Students: "
         android:id="@+id/students_classroom_txt"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:textSize="25dp"
         android:layout_below="@+id/professor_classroom_txt"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Seats: "
         android:id="@+id/seats_classroom_txt"
-        android:layout_marginTop="15dp"
         android:textSize="25dp"
-        android:layout_below="@+id/students_classroom_txt"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/students_classroom_txt"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_lecture"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp"
+        android:layout_alignBottom="@+id/lecture_classroom_txt"
+        android:layout_toRightOf="@+id/lecture_classroom_txt"
+        android:layout_toEndOf="@+id/lecture_classroom_txt"
+        android:layout_alignTop="@+id/lecture_classroom_txt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_professor"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp"
+        android:layout_alignTop="@+id/professor_classroom_txt"
+        android:layout_toRightOf="@+id/professor_classroom_txt"
+        android:layout_toEndOf="@+id/professor_classroom_txt"
+        android:layout_alignBottom="@+id/professor_classroom_txt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_students"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp"
+        android:layout_alignTop="@+id/students_classroom_txt"
+        android:layout_toRightOf="@+id/students_classroom_txt"
+        android:layout_toEndOf="@+id/students_classroom_txt"
+        android:layout_alignBottom="@+id/students_classroom_txt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_seats"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp"
+        android:layout_alignTop="@+id/seats_classroom_txt"
+        android:layout_toRightOf="@+id/seats_classroom_txt"
+        android:layout_toEndOf="@+id/seats_classroom_txt"
+        android:layout_alignBottom="@+id/seats_classroom_txt" />
 
 </RelativeLayout>
