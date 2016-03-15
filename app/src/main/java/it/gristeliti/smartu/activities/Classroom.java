@@ -38,10 +38,10 @@ public class Classroom extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         label = (TextView)findViewById(R.id.classroom_label);
-        lecture = (TextView)findViewById(R.id.lecture_classroom_txt);
-        professor = (TextView)findViewById(R.id.professor_classroom_txt);
-        students = (TextView)findViewById(R.id.students_classroom_txt);
-        seats = (TextView)findViewById(R.id.seats_classroom_txt);
+        lecture = (TextView)findViewById(R.id.textView_lecture);
+        professor = (TextView)findViewById(R.id.textView_professor);
+        students = (TextView)findViewById(R.id.textView_students);
+        seats = (TextView)findViewById(R.id.textView_seats);
 
         floatingActionButton = (FloatingActionButton)findViewById(R.id.fab_classroom);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
