@@ -53,11 +53,6 @@ public class EstimoteManager {
     private static String newUUID;
 
     /**
-     * Time to wait to update the discovered beacon
-     */
-    private static final int TIME_LIMIT = 5000;
-
-    /**
      * true if we are going to clear the UI
      */
     private static boolean clearing;
@@ -110,13 +105,10 @@ public class EstimoteManager {
                         // If the more recent UUID is different from the older one,
                         // restart the timer
                         if (!newUUID.equals(oldUUID)) {
-                            /*beaconsHandler.removeCallbacks(queriesRunnable);
-                            beaconsHandler.postDelayed(queriesRunnable, QUERIES_DELAY_MILLIS); // 10 sec (debug value) */
+                            beaconsHandler.removeCallbacks(queriesRunnable);
+                            beaconsHandler.postDelayed(queriesRunnable, QUERIES_DELAY_MILLIS);
                             oldUUID = newUUID; // update the oldID
-
                             Log.d("BEACON MANAGER", "new beacon found: " + newUUID);
-
-                            queryClassroom(newUUID);
                         }
                     }
                     // in this case
@@ -152,8 +144,14 @@ public class EstimoteManager {
         }
     }
 
-    private static final Runnable clearRunnable = new Runnable() {
+    private static final Runnable queriesRunnable = new Runnable() {
+        @Override
+        public void run() {
+            queryClassroom(newUUID);
+        }
+    };
 
+    private static final Runnable clearRunnable = new Runnable() {
         @Override
         public void run() {
             Intent intent = new Intent(CLEAR_ACTION);
@@ -174,7 +172,6 @@ public class EstimoteManager {
                     currentContext.sendBroadcast(intent);
                     Log.d("Classroom retrieved", result);
                 } else {
-                    //Toast.makeText(Classroom.this, "Errore query lezione corrente", Toast.LENGTH_LONG).show();
                     Log.e("Classroom retrieved", result);
                 }
             }
