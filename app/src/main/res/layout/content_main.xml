@@ -107,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/classroom_label"
                 android:gravity="center"
+                android:background="@color/main_data_color"
                 style="@style/MainText" />
 
             <TextView
@@ -125,6 +126,7 @@
                 android:layout_below="@id/professor_label"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
+                android:background="@color/main_data_color"
                 style="@style/MainText" />
 
             <TextView
@@ -142,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lecture_label"
                 android:gravity="center"
+                android:background="@color/main_data_color"
                 style="@style/MainText" />
 
             <TextView
@@ -159,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_below="@id/prev_lecture_label"
+                android:background="@color/main_data_color"
                 style="@style/MainText" />
 
             <TextView
@@ -177,6 +181,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_below="@id/succ_lecture_label"
+                android:background="@color/main_data_color"
                 style="@style/MainText" />
 
             <TextView
@@ -195,6 +200,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_below="@id/students_label"
+                android:background="@color/main_data_color"
                 style="@style/MainText" />
 
         </RelativeLayout>
