@@ -21,9 +21,41 @@ public class QueriesManager {
             @Override
             public void done(String result, ParseException parseException) {
                 if (parseException == null) {
-                    textView.setText("Lecture: " + result);
+                    textView.setText(result);
                 } else {
-                    textView.setText("Lecture: Error");
+                    textView.setText("No lecture found");
+                    Log.e("Queries Manager: ", parseException.getMessage());
+                }
+            }
+        });
+    }
+
+    public synchronized static void queryNextLecture(String classroomLabel, final TextView textView) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("getLabel", classroomLabel);
+        ParseCloud.callFunctionInBackground("getNextLesson", map, new FunctionCallback<String>() {
+            @Override
+            public void done(String result, ParseException parseException) {
+                if (parseException == null) {
+                    textView.setText(result);
+                } else {
+                    textView.setText("No lecture found");
+                    Log.e("Queries Manager: ", parseException.getMessage());
+                }
+            }
+        });
+    }
+
+    public synchronized static void queryPrevoiusLecture(String classroomLabel, final TextView textView) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("getLabel", classroomLabel);
+        ParseCloud.callFunctionInBackground("getPreviousLesson", map, new FunctionCallback<String>() {
+            @Override
+            public void done(String result, ParseException parseException) {
+                if (parseException == null) {
+                    textView.setText(result);
+                } else {
+                    textView.setText("No lecture found");
                     Log.e("Queries Manager: ", parseException.getMessage());
                 }
             }
@@ -33,9 +65,9 @@ public class QueriesManager {
     public synchronized static void querySeats(String classroomLabel, final TextView textView) {
         HashMap<String, String> map = new HashMap<>();
         map.put("getClassroomName", classroomLabel);
-        ParseCloud.callFunctionInBackground("getSeats", map, new FunctionCallback<String>() {
+        ParseCloud.callFunctionInBackground("getSeats", map, new FunctionCallback<Integer>() {
             @Override
-            public void done(String result, ParseException parseException) {
+            public void done(Integer result, ParseException parseException) {
                 if (parseException == null) {
                     textView.setText("Seats: " + result);
                 } else {

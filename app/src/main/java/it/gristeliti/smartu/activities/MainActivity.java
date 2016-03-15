@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity
         ParseInstallation currentInstall = ParseInstallation.getCurrentInstallation();
         currentInstall.put("Owner", ParseUser.getCurrentUser());
         currentInstall.saveInBackground();
+        
     }
 
     @Override
