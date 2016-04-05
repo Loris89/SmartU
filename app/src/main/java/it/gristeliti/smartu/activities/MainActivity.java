@@ -43,6 +43,7 @@ import it.gristeliti.smartu.R;
 import it.gristeliti.smartu.managers.EstimoteManager;
 import it.gristeliti.smartu.services.HeartbeatService;
 import it.gristeliti.smartu.managers.QueriesManager;
+import it.gristeliti.smartu.services.RecordingService;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -263,8 +264,9 @@ public class MainActivity extends AppCompatActivity
         }
         // stop ranging
         EstimoteManager.stop();
-        // stop heartbeat
+        // stop services
         stopService(new Intent(MainActivity.this, HeartbeatService.class));
+        stopService(new Intent(MainActivity.this, RecordingService.class));
 
         // log-out from the system
         ParseUser.logOut();
@@ -390,6 +392,7 @@ public class MainActivity extends AppCompatActivity
                     EstimoteManager.stop();
                     rangingLabel.setText("Ranging: OFF");
                     stopService(new Intent(MainActivity.this, HeartbeatService.class));
+                    stopService(new Intent(MainActivity.this, RecordingService.class));
                 }
                 else if(intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1) == BluetoothAdapter.STATE_ON) {
                     bluetoothLabel.setText("Bluetooth: ON");
@@ -408,6 +411,7 @@ public class MainActivity extends AppCompatActivity
                     // stop services
                     EstimoteManager.stop();
                     stopService(new Intent(MainActivity.this, HeartbeatService.class));
+                    stopService(new Intent(MainActivity.this, RecordingService.class));
                 } else {
                     connectionLabel.setText("Connection: " + activeNetInfo.getTypeName());
                     // start/restart services
@@ -416,20 +420,27 @@ public class MainActivity extends AppCompatActivity
             }
 
             if(action.equals(EstimoteManager.CLASSROOM_CHANGED_ACTION)) {
-                // stop and restart the HeartbeatService with new data
+                // stop and restart the HeartbeatService/RecordingService with new data
                 stopService(new Intent(MainActivity.this, HeartbeatService.class));
-                Intent serviceIntent = new Intent(MainActivity.this, HeartbeatService.class);
+                stopService(new Intent(MainActivity.this, RecordingService.class));
+                Intent heartbeatServiceIntent = new Intent(MainActivity.this, HeartbeatService.class);
+                Intent recordingServiceIntent = new Intent(MainActivity.this, RecordingService.class);
                 classroom = intent.getStringExtra(EstimoteManager.CLASSROOM_CHANGED);
-                // update textviews
+                // update view
                 classroomTextView.setText(classroom);
                 update();
-                serviceIntent.putExtra(EstimoteManager.CLASSROOM_CHANGED, classroom);
-                startService(serviceIntent);
+                // restart heartbeat service
+                heartbeatServiceIntent.putExtra(EstimoteManager.CLASSROOM_CHANGED, classroom);
+                startService(heartbeatServiceIntent);
+                // restart recording service
+                recordingServiceIntent.putExtra(EstimoteManager.CLASSROOM_CHANGED, classroom);
+                startService(recordingServiceIntent);
             }
 
             if(action.equals(EstimoteManager.CLEAR_ACTION)) {
                 // stop sending Heartbeat
                 stopService(new Intent(MainActivity.this, HeartbeatService.class));
+                stopService(new Intent(MainActivity.this, RecordingService.class));
                 // clear textviews..
                 classroomTextView.setText("None");
                 professorTextView.setText("None");
