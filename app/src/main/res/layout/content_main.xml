@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#689bb7"
+        android:background="@color/main_data_color"
         android:id="@+id/statusLayout"
         android:layout_below="@+id/hide_show_button"
         android:layout_marginTop="5dp">
