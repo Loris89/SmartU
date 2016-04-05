@@ -1,6 +1,7 @@
 package it.gristeliti.smartu.activities;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -133,6 +134,10 @@ public class CoursesRegistration extends AppCompatActivity {
                 // inflate the GridView item layout
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.course_registration_row, parent, false);
+
+                if (position % 2 == 0) {
+                    convertView.setBackgroundResource(R.color.main_data_color);
+                }
 
                 // initialize the view holder
                 viewHolder = new ViewHolder();
