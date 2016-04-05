@@ -89,11 +89,13 @@ public class QueriesManager {
                     try {
                         professorTextView.setText(professor.fetchIfNeeded().getString("surname"));
                     } catch (ParseException e) {
-                        Log.e("Queries Manager", e.getMessage());
+                        Log.e("Queries Manager Prof", e.getMessage());
                     }
                     courseTextView.setText(result.getString("name"));
                 } else {
                     Log.e("Queries Manager", parseException.getMessage());
+                    professorTextView.setText("No Professor");
+                    courseTextView.setText("No Lecture");
                 }
             }
         });
