@@ -86,7 +86,7 @@ public class HeartbeatService extends Service {
                 public void run() {
                     // query to Parse
                     queryUpdateAttending(classroom, ParseUser.getCurrentUser().getObjectId());
-                    //Log.d("HEARTBEAT", "query sent");
+                    //Log.i("HEARTBEAT", "query sent");
                 }
             });
         }
@@ -102,6 +102,7 @@ public class HeartbeatService extends Service {
                 if (parseException == null) {
                     //Log.d("HEARTBEAT", "heartbeat ok");
                 }else{
+                    Log.e("Heartbeat", parseException.getMessage());
                     Toast.makeText(HeartbeatService.this,"Error sending hearbeat", Toast.LENGTH_SHORT).show();
                 }
             }
