@@ -144,6 +144,10 @@ public class Board extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.board_row, parent, false);
 
+                if (position % 2 == 0) {
+                    convertView.setBackgroundResource(R.color.main_data_color);
+                }
+
                 // initialize the view holder
                 viewHolder = new ViewHolder();
                 viewHolder.nickname = (TextView) convertView.findViewById(R.id.nickname_txt);
