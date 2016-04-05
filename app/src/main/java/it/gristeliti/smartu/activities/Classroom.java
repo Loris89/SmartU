@@ -23,8 +23,11 @@ public class Classroom extends AppCompatActivity {
     private TextView label;
     private TextView seats;
     private TextView students;
-    private TextView lecture;
+    private TextView currentLecture;
+    private TextView nextLecture;
+    private TextView prevLecture;
     private TextView professor;
+    private TextView noise;
 
     private FloatingActionButton floatingActionButton;
 
@@ -38,10 +41,13 @@ public class Classroom extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         label = (TextView)findViewById(R.id.classroom_label);
-        lecture = (TextView)findViewById(R.id.textView_lecture);
+        currentLecture = (TextView)findViewById(R.id.textView_lecture);
+        nextLecture = (TextView)findViewById(R.id.textView_nextlecture);
+        prevLecture = (TextView)findViewById(R.id.textView_prevlecture);
         professor = (TextView)findViewById(R.id.textView_professor);
         students = (TextView)findViewById(R.id.textView_students);
         seats = (TextView)findViewById(R.id.textView_seats);
+        noise = (TextView)findViewById(R.id.textView_noise);
 
         floatingActionButton = (FloatingActionButton)findViewById(R.id.fab_classroom);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +64,9 @@ public class Classroom extends AppCompatActivity {
     }
 
     private void update() {
-        QueriesManager.queryCourse(classroom_name, professor, lecture);
+        QueriesManager.queryCourse(classroom_name, professor, currentLecture);
+        QueriesManager.queryNextLecture(classroom_name, nextLecture);
+        QueriesManager.queryPrevoiusLecture(classroom_name, prevLecture);
         QueriesManager.queryNumberOfStudents(classroom_name, students);
         QueriesManager.querySeats(classroom_name, seats);
     }
