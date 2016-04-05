@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--
     GET_ACCOUNTS is only required for GCM on devices running Android lower than
     4.0.4. You may leave out this permission if you are targetting 4.0.4+.
@@ -53,11 +55,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginRegActivity"
-            android:label="LoginRegActivity"
+            android:label="SmartU"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -105,6 +106,11 @@
             android:name=".activities.CourseActivity"
             android:label="@string/title_activity_course"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".services.RecordingService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>
