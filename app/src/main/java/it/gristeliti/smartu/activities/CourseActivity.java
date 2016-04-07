@@ -28,7 +28,6 @@ public class CourseActivity extends AppCompatActivity {
 
     private TextView courseName;
     private TextView professorName;
-    private TextView rating;
 
     private Button boardButton;
     private Button unsubscribeButton;
@@ -42,9 +41,8 @@ public class CourseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        courseName = (TextView)findViewById(R.id.course_name_txt);
-        professorName = (TextView)findViewById(R.id.professor_course_name_txt);
-        rating = (TextView)findViewById(R.id.course_rating_txt);
+        courseName = (TextView)findViewById(R.id.course_text);
+        professorName = (TextView)findViewById(R.id.professor_text);
 
         boardButton = (Button)findViewById(R.id.board_button);
         unsubscribeButton = (Button)findViewById(R.id.unsubscribe_button);
@@ -52,7 +50,7 @@ public class CourseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         course = intent.getStringExtra(MyCourses.COURSE_KEY);
 
-        courseName.setText("Name: " + course);
+        courseName.setText(course);
         setProfessorName();
 
         boardButton.setOnClickListener(new View.OnClickListener() {
@@ -91,18 +89,6 @@ public class CourseActivity extends AppCompatActivity {
     }
 
     private void setProfessorName() {
-        /*HashMap<String, String> map = new HashMap<>();
-        map.put("getCourseName", course);
-        ParseCloud.callFunctionInBackground("getProfessorFromCourse", map, new FunctionCallback<String>() {
-            @Override
-            public void done(String result, ParseException parseException) {
-                if (parseException == null) {
-                    professorName.setText("Professor: " + result);
-                } else {
-                    Log.d("COURSE NOT FOUND", parseException.getMessage());
-                }
-            }
-        });*/
         QueriesManager.queryProfessor(course, professorName);
     }
 }
