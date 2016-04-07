@@ -108,9 +108,9 @@ public class QueriesManager {
             @Override
             public void done(String result, ParseException parseException) {
                 if (parseException == null) {
-                    textView.setText("Professor: " + result);
+                    textView.setText(result);
                 } else {
-                    textView.setText("Professor: Error");
+                    textView.setText(parseException.getMessage());
                     Log.e("Queries Manager", parseException.getMessage());
                 }
             }
@@ -121,6 +121,38 @@ public class QueriesManager {
         HashMap<String, String> map = new HashMap<>();
         map.put("getClassroomName", classroom);
         ParseCloud.callFunctionInBackground("getStudentsNumber", map, new FunctionCallback<Integer>() {
+            @Override
+            public void done(Integer result, ParseException parseException) {
+                if (parseException == null) {
+                    textView.setText(String.valueOf(result));
+                } else {
+                    textView.setText("Error");
+                    Log.e("Queries Manager", parseException.getMessage());
+                }
+            }
+        });
+    }
+
+    public synchronized static void sendNoise(String classroom, int noise) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("getClassroomName", classroom);
+        map.put("getNoise", String.valueOf(noise));
+        ParseCloud.callFunctionInBackground("setNoise", map, new FunctionCallback<Integer>() {
+            @Override
+            public void done(Integer result, ParseException parseException) {
+                if (parseException == null) {
+
+                } else {
+                    Log.e("Queries Manager", parseException.getMessage());
+                }
+            }
+        });
+    }
+
+    public synchronized static void gueryNoise(String classroom, final TextView textView) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("getClassroomName", classroom);
+        ParseCloud.callFunctionInBackground("getNoise", map, new FunctionCallback<Integer>() {
             @Override
             public void done(Integer result, ParseException parseException) {
                 if (parseException == null) {
