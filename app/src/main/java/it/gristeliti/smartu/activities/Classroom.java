@@ -69,6 +69,7 @@ public class Classroom extends AppCompatActivity {
         QueriesManager.queryPrevoiusLecture(classroom_name, prevLecture);
         QueriesManager.queryNumberOfStudents(classroom_name, students);
         QueriesManager.querySeats(classroom_name, seats);
+        QueriesManager.gueryNoise(classroom_name, noise);
     }
 
     public void onStart() {
