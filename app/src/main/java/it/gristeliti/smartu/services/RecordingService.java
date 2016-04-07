@@ -15,6 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import it.gristeliti.smartu.managers.EstimoteManager;
+import it.gristeliti.smartu.managers.QueriesManager;
 
 public class RecordingService extends Service {
 
@@ -106,6 +107,7 @@ public class RecordingService extends Service {
                     Log.i("DECIBELS", "Classroom: " + classroom + " | decibels: " + decibels + " dB");
                     if(decibels >= 20 && decibels <= 120) {
                         // send decibels to Parse
+                        QueriesManager.sendNoise(classroom, decibels);
                     }
                 }
             });
