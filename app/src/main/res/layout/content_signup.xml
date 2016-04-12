@@ -23,72 +23,83 @@
         android:textColor="@color/colorPrimary"
         android:textSize="30dp"/>
 
-    <EditText
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/nickname_edittext"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="match_parent"
         android:layout_below="@id/signup_txt"
-        android:layout_marginTop="@dimen/signup_margin_top"
-        android:hint="@string/Nickname" />
+        android:layout_above="@+id/signup_button">
 
-    <EditText
-        android:id="@+id/password_edittext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/nickname_edittext"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/signup_margin_top"
-        android:hint="@string/Password"
-        android:inputType="textPassword" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/email_edittext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/password_edittext"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/signup_margin_top"
-        android:hint="@string/Email"
-        android:inputType="textEmailAddress" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nickname_edittext"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/signup_margin_top"
+                android:hint="@string/Nickname" />
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/matricula_edittext"
-        android:layout_below="@id/email_edittext"
-        android:layout_marginTop="@dimen/signup_margin_top"
-        android:hint="@string/Matricula" />
+            <EditText
+                android:id="@+id/password_edittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nickname_edittext"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/signup_margin_top"
+                android:hint="@string/Password"
+                android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/name_edittext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@id/matricula_edittext"
-        android:layout_marginTop="@dimen/signup_margin_top"
-        android:hint="@string/Name" />
+            <EditText
+                android:id="@+id/email_edittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/password_edittext"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/signup_margin_top"
+                android:hint="@string/Email"
+                android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/surname_edittext"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@id/name_edittext"
-        android:layout_marginTop="@dimen/signup_margin_top"
-        android:hint="@string/Surname" />
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/matricula_edittext"
+                android:layout_below="@id/email_edittext"
+                android:layout_marginTop="@dimen/signup_margin_top"
+                android:hint="@string/ID" />
+
+            <EditText
+                android:id="@+id/name_edittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@id/matricula_edittext"
+                android:layout_marginTop="@dimen/signup_margin_top"
+                android:hint="@string/Name" />
+
+            <EditText
+                android:id="@+id/surname_edittext"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@id/name_edittext"
+                android:layout_marginTop="@dimen/signup_margin_top"
+                android:hint="@string/Surname" />
+            </RelativeLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/signup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/surname_edittext"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/signup_button_margin_top"
         style="@style/StandardButton"
         android:background="@drawable/buttonshape"
-        android:text="@string/SignupBtn" />
+        android:text="@string/SignupBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <ProgressBar
         android:layout_width="wrap_content"
