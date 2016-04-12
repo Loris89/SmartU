@@ -41,9 +41,6 @@ public class Board extends AppCompatActivity {
 
     private String course;
 
-    private final Handler h = new Handler();
-    private final int delay = 10000; //milliseconds
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,12 +71,12 @@ public class Board extends AppCompatActivity {
 
         queryUpdateBoard(course);
 
-        h.postDelayed(new Runnable() {
+        /*h.postDelayed(new Runnable() {
             public void run() {
                 queryUpdateBoard(course);
                 h.postDelayed(this, delay);
             }
-        }, delay);
+        }, delay);*/
     }
 
     protected void onDestroy() {
@@ -113,7 +110,7 @@ public class Board extends AppCompatActivity {
         listView.setAdapter(new ListAdapter(Board.this, boardMessageList));
     }
 
-    private void querySendMessage(String message, String course, String userObjId) {
+    private void querySendMessage(String message, final String course, String userObjId) {
         HashMap<String, String> map = new HashMap<>();
         map.put("getCourseName", course);
         map.put("getMessage", message);
@@ -122,6 +119,7 @@ public class Board extends AppCompatActivity {
             @Override
             public void done(String result, ParseException parseException) {
                 if (parseException == null) {
+                    queryUpdateBoard(course);
                 } else {
                     Toast.makeText(Board.this, parseException.getMessage(), Toast.LENGTH_LONG).show();
                 }
