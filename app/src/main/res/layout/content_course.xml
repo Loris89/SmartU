@@ -67,7 +67,6 @@
         android:id="@+id/unsubscribe_button"
         android:background="@drawable/buttonshape"
         style="@style/StandardButton"
-        android:layout_marginBottom="70dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
