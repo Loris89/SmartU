@@ -19,131 +19,141 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/lecture_classroom_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/MainData"
-        android:text="Current lecture"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/classroom_label"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_lecture"
-        style="@style/MainText"
-        android:gravity="center"
-        android:background="@color/main_data_color"
-        android:layout_below="@+id/lecture_classroom_txt" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/classroom_label">
 
-    <TextView
-        android:id="@+id/prev_lecture_classroom_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/MainData"
-        android:text="Previous lecture"
-        android:layout_below="@id/textView_lecture"
-        android:layout_centerHorizontal="true" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_prevlecture"
-        style="@style/MainText"
-        android:gravity="center"
-        android:background="@color/main_data_color"
-        android:layout_below="@id/prev_lecture_classroom_txt" />
+            <TextView
+                android:id="@+id/lecture_classroom_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MainData"
+                android:text="Current lecture"
+                android:layout_marginTop="25dp"
+                android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/next_lecture_classroom_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/MainData"
-        android:text="Next lecture"
-        android:layout_below="@id/textView_prevlecture"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_lecture"
+                style="@style/MainText"
+                android:gravity="center"
+                android:background="@color/main_data_color"
+                android:layout_below="@+id/lecture_classroom_txt" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_nextlecture"
-        style="@style/MainText"
-        android:gravity="center"
-        android:background="@color/main_data_color"
-        android:layout_below="@id/next_lecture_classroom_txt" />
+            <TextView
+                android:id="@+id/prev_lecture_classroom_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MainData"
+                android:text="Previous lecture"
+                android:layout_below="@id/textView_lecture"
+                android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Professor"
-        android:id="@+id/professor_classroom_txt"
-        style="@style/MainData"
-        android:layout_below="@id/textView_nextlecture"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_prevlecture"
+                style="@style/MainText"
+                android:gravity="center"
+                android:background="@color/main_data_color"
+                android:layout_below="@id/prev_lecture_classroom_txt" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_professor"
-        style="@style/MainText"
-        android:gravity="center"
-        android:background="@color/main_data_color"
-        android:layout_below="@id/professor_classroom_txt"/>
+            <TextView
+                android:id="@+id/next_lecture_classroom_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MainData"
+                android:text="Next lecture"
+                android:layout_below="@id/textView_prevlecture"
+                android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Students"
-        android:id="@+id/students_classroom_txt"
-        style="@style/MainData"
-        android:layout_below="@+id/textView_professor"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_nextlecture"
+                style="@style/MainText"
+                android:gravity="center"
+                android:background="@color/main_data_color"
+                android:layout_below="@id/next_lecture_classroom_txt" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_students"
-        style="@style/MainText"
-        android:gravity="center"
-        android:background="@color/main_data_color"
-        android:layout_below="@id/students_classroom_txt" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Professor"
+                android:id="@+id/professor_classroom_txt"
+                style="@style/MainData"
+                android:layout_below="@id/textView_nextlecture"
+                android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Seats"
-        android:id="@+id/seats_classroom_txt"
-        style="@style/MainData"
-        android:layout_below="@+id/textView_students"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_professor"
+                style="@style/MainText"
+                android:gravity="center"
+                android:background="@color/main_data_color"
+                android:layout_below="@id/professor_classroom_txt"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_seats"
-        style="@style/MainText"
-        android:gravity="center"
-        android:background="@color/main_data_color"
-        android:layout_below="@id/seats_classroom_txt" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Students Number"
+                android:id="@+id/students_classroom_txt"
+                style="@style/MainData"
+                android:layout_below="@+id/textView_professor"
+                android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Noise"
-        android:id="@+id/noise_classroom_txt"
-        style="@style/MainData"
-        android:layout_below="@+id/textView_seats"
-        android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_students"
+                style="@style/MainText"
+                android:gravity="center"
+                android:background="@color/main_data_color"
+                android:layout_below="@id/students_classroom_txt" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView_noise"
-        style="@style/MainText"
-        android:gravity="center"
-        android:background="@color/main_data_color"
-        android:layout_below="@id/noise_classroom_txt" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seats Number"
+                android:id="@+id/seats_classroom_txt"
+                style="@style/MainData"
+                android:layout_below="@+id/textView_students"
+                android:layout_centerHorizontal="true" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_seats"
+                style="@style/MainText"
+                android:gravity="center"
+                android:background="@color/main_data_color"
+                android:layout_below="@id/seats_classroom_txt" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Noise Level"
+                android:id="@+id/noise_classroom_txt"
+                style="@style/MainData"
+                android:layout_below="@+id/textView_seats"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_noise"
+                style="@style/MainText"
+                android:gravity="center"
+                android:background="@color/main_data_color"
+                android:layout_below="@id/noise_classroom_txt" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
