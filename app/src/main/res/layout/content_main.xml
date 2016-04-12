@@ -188,7 +188,7 @@
                 android:id="@+id/students_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Students"
+                android:text="Students Number"
                 android:gravity="center"
                 android:layout_below="@id/succ_lecture_text"
                 android:layout_centerHorizontal="true"
