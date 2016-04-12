@@ -4,7 +4,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.parse.FunctionCallback;
-import com.parse.GetCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -137,9 +136,9 @@ public class QueriesManager {
         HashMap<String, String> map = new HashMap<>();
         map.put("getClassroomName", classroom);
         map.put("getNoise", String.valueOf(noise));
-        ParseCloud.callFunctionInBackground("setNoise", map, new FunctionCallback<Integer>() {
+        ParseCloud.callFunctionInBackground("setNoise", map, new FunctionCallback<String>() {
             @Override
-            public void done(Integer result, ParseException parseException) {
+            public void done(String result, ParseException parseException) {
                 if (parseException == null) {
 
                 } else {
@@ -152,11 +151,11 @@ public class QueriesManager {
     public synchronized static void gueryNoise(String classroom, final TextView textView) {
         HashMap<String, String> map = new HashMap<>();
         map.put("getClassroomName", classroom);
-        ParseCloud.callFunctionInBackground("getNoise", map, new FunctionCallback<Integer>() {
+        ParseCloud.callFunctionInBackground("getNoise", map, new FunctionCallback<String>() {
             @Override
-            public void done(Integer result, ParseException parseException) {
+            public void done(String result, ParseException parseException) {
                 if (parseException == null) {
-                    textView.setText(String.valueOf(result));
+                    textView.setText(result);
                 } else {
                     textView.setText("Error");
                     Log.e("Queries Manager", parseException.getMessage());
