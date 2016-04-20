@@ -3,6 +3,8 @@
     <string-array name="classrooms_array">
         <item>Register to Courses</item>
         <item>My Courses</item>
+        <item>Quietest Classroom</item>
+        <item>Empty Classroom</item>
         <item>A1</item>
         <item>A2</item>
         <item>A3</item>
