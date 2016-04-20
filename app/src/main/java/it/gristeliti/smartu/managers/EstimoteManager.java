@@ -84,8 +84,9 @@ public class EstimoteManager {
                 @Override
                 public void onBeaconsDiscovered(Region ALL_ESTIMOTE_BEACON, List<Beacon> beacons) {
                     // perform some operation on the list of beacon if this is not empty
+                    // STO CAPTANDO QUALCHE BEACON
                     if (!beacons.isEmpty()) {
-                        // Log.i("main: ", "beacon discovered");
+                        Log.i("EstimoteManager", "beacon discovered!");
                         // if myClearRunnable was running, then stop it
                         beaconsHandler.removeCallbacks(clearRunnable);
 
@@ -111,8 +112,9 @@ public class EstimoteManager {
                             Log.d("BEACON MANAGER", "new beacon found: " + newUUID);
                         }
                     }
-                    // in this case
+                    // NON STO CAPTANDO NESSUN BEACON
                     else {
+                        Log.i("EstimoteManager", "no beacon detected");
                         // if the myClearRunnable is not running, start it
                         if (!clearing) {
                             clearing = true;
