@@ -83,13 +83,10 @@
         android:layout_height="wrap_content"
         android:text="Note"
         android:id="@+id/note"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/buttonshape"
-        android:layout_above="@+id/login"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="104dp"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentBottom="true" />
+        android:layout_above="@id/login"
+        android:layout_centerHorizontal="true" />
     <!--       -->
 
 </RelativeLayout>
