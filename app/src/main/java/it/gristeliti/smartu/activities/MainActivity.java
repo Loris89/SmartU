@@ -3,32 +3,32 @@ package it.gristeliti.smartu.activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.parse.LogInCallback;
@@ -36,13 +36,10 @@ import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import it.gristeliti.smartu.R;
 import it.gristeliti.smartu.managers.EstimoteManager;
-import it.gristeliti.smartu.services.HeartbeatService;
 import it.gristeliti.smartu.managers.QueriesManager;
+import it.gristeliti.smartu.services.HeartbeatService;
 import it.gristeliti.smartu.services.RecordingService;
 
 public class MainActivity extends AppCompatActivity
@@ -76,6 +73,7 @@ public class MainActivity extends AppCompatActivity
 
     // buttons
     private Button hideShowButton;
+    private Button helpButton;  // aggiunto tom
 
     // network and bluetooth BroadcastReceiver
     private MyBroadcastReceiver broadcastReceiver;
@@ -173,6 +171,26 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+        // aggiunto tom ---------------------------------
+        helpButton = (Button)findViewById(R.id.help_button);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                alertDialog.setTitle("Help");
+                alertDialog.setMessage("bbòjbjnds\njndasjajav\nsdvsbòvd\nsabòvdks\nbkdvaskj\nvdbfòbEF\nBòkabfòjkjAB\nSFJKòBasjf\nkòbASJKFBJA\nskbfkjaSBF\nKòAsbfkòBA\nSKFJBSAkòfba\nKòBFKò\nabkjòfAbbb");
+                alertDialog.setCancelable(true);
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface di, int w) {
+                        di.cancel();
+                    }
+                });
+                AlertDialog alert = alertDialog.create();
+                alert.show();
+            }
+        });
+        // ----------------------------------------------------
 
         // initialize bluetooth filters
         intentFilter = new IntentFilter();
