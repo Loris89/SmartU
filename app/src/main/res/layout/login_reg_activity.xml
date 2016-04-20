@@ -79,13 +79,17 @@
     <!-- aggiunto tom -->
     <Button
         style="@style/StandardButton"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Note"
         android:id="@+id/note"
-        android:layout_centerVertical="true"
+        android:background="@drawable/buttonshape"
+        android:layout_above="@+id/login"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/buttonshape" />
+        android:layout_marginBottom="104dp"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentBottom="true" />
     <!--       -->
 
 </RelativeLayout>
