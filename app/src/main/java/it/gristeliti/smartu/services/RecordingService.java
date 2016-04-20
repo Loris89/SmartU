@@ -104,10 +104,12 @@ public class RecordingService extends Service {
                 public void run() {
                     double amplitude = mRecorder.getMaxAmplitude();
                     decibels = (int) (20 * Math.log10(amplitude / 0.9));
-                    Log.i("DECIBELS", "Classroom: " + classroom + " | decibels: " + decibels + " dB");
-                    if(decibels >= 20 && decibels <= 120) {
-                        // send decibels to Parse
-                        QueriesManager.sendNoise(classroom, decibels);
+                    if(classroom != null) {
+                        Log.i("DECIBELS", "Classroom: " + classroom + " | decibels: " + decibels + " dB");
+                        if (decibels >= 20 && decibels <= 120) {
+                            // send decibels to Parse
+                            QueriesManager.sendNoise(classroom, decibels);
+                        }
                     }
                 }
             });
