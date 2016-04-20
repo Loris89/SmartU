@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/course_registration_txt"
         android:text="Course"
+        android:paddingLeft="2dp"
         android:layout_gravity="center"
         android:textSize="25dp"
         android:textColor="@color/black"/>
-
 </LinearLayout>
