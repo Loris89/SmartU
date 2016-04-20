@@ -1,7 +1,10 @@
 package it.gristeliti.smartu.managers;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
@@ -9,6 +12,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 public class QueriesManager {
@@ -84,17 +89,78 @@ public class QueriesManager {
             @Override
             public void done(ParseObject result, ParseException parseException) {
                 if (parseException == null) {
-                    ParseUser professor = result.getParseUser("Professor");
+                    ParseUser professor = result.getParseObject("Course").getParseUser("Professor");
+                    courseTextView.setText(result.getParseObject("Course").getString("name"));
                     try {
                         professorTextView.setText(professor.fetchIfNeeded().getString("surname"));
+                        // Start time
+                        Calendar cal = Calendar.getInstance();
+                        Date startTime =  result.getDate("start_time");
+                        cal.setTime(startTime);
+                        cal.add(Calendar.HOUR, -2);
+                        int hours = cal.get(Calendar.HOUR_OF_DAY);
+                        int min = cal.get(Calendar.MINUTE);
+                        String smin = "";
+                        if(min == 0) {
+                            smin = "00";
+                        } else {
+                            smin = String.valueOf(min);
+                        }
+                        // --> edit textview
+                        String start = hours + ":" + smin;
+                        Log.d("Start lesson", start);
+                        courseTextView.append("\nLesson started at: " + start);
+                        // End time
+                        Date endTime =  result.getDate("end_time");
+                        cal.setTime(endTime);
+                        cal.add(Calendar.HOUR, -2);
+                        hours = cal.get(Calendar.HOUR_OF_DAY);
+                        min = cal.get(Calendar.MINUTE);
+                        smin = "";
+                        if(min == 0) {
+                            smin = "00";
+                        } else {
+                            smin = String.valueOf(min);
+                        }
+                        String end = hours + ":" + smin;
+                        // --> edit textview
+                        Log.d("End lesson", end);
+                        courseTextView.append("\nLesson ends at: " + end);
                     } catch (ParseException e) {
                         Log.e("Queries Manager Prof", e.getMessage());
                     }
-                    courseTextView.setText(result.getString("name"));
                 } else {
                     Log.e("Queries Manager", parseException.getMessage());
                     professorTextView.setText("No Professor");
                     courseTextView.setText("No Lecture");
+                }
+            }
+        });
+    }
+
+    public synchronized static void quietestClassroom(final Context context) {
+        HashMap<String, String> map = new HashMap<>();
+        ParseCloud.callFunctionInBackground("quietestClassroom", map, new FunctionCallback<String>() {
+            @Override
+            public void done(String result, ParseException parseException) {
+                if (parseException == null) {
+                    Toast.makeText(context, "The quietest classroom is " + result, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, parseException.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    public synchronized static void emptyClassroom(final Context context) {
+        HashMap<String, String> map = new HashMap<>();
+        ParseCloud.callFunctionInBackground("getEmptyClassroom", map, new FunctionCallback<String>() {
+            @Override
+            public void done(String result, ParseException parseException) {
+                if (parseException == null) {
+                    Toast.makeText(context, "An empty classroom is " + result, Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context, parseException.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -159,6 +225,22 @@ public class QueriesManager {
                 } else {
                     textView.setText("Error");
                     Log.e("Queries Manager", parseException.getMessage());
+                }
+            }
+        });
+    }
+
+    public synchronized static void queryClassroom(String course, final Context context) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("getCourseName", course);
+        ParseCloud.callFunctionInBackground("getClassroomFromCourse", map, new FunctionCallback<String>() {
+            @Override
+            public void done(String result, ParseException parseException) {
+                if (parseException == null) {
+                    Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+                } else {
+                    Log.e("Queries Manager", parseException.getMessage());
+                    Toast.makeText(context, parseException.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
