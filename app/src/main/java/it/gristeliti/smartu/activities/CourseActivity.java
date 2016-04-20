@@ -31,6 +31,7 @@ public class CourseActivity extends AppCompatActivity {
 
     private Button boardButton;
     private Button unsubscribeButton;
+    private Button classroomButton;
 
     private String course;
 
@@ -44,6 +45,7 @@ public class CourseActivity extends AppCompatActivity {
         courseName = (TextView)findViewById(R.id.course_text);
         professorName = (TextView)findViewById(R.id.professor_text);
 
+        classroomButton = (Button)findViewById(R.id.classroom_button);
         boardButton = (Button)findViewById(R.id.board_button);
         unsubscribeButton = (Button)findViewById(R.id.unsubscribe_button);
 
@@ -66,6 +68,13 @@ public class CourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 unsubscribe();
+            }
+        });
+
+        classroomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QueriesManager.queryClassroom(course, CourseActivity.this);
             }
         });
     }
