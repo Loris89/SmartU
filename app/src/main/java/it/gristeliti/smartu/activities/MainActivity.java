@@ -354,6 +354,12 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, MyCourses.class);
                 startActivity(intent);
             }
+            else if(navigation_drawer_elements[position].equals("Quietest Classroom")) {
+                QueriesManager.quietestClassroom(MainActivity.this);
+            }
+            else if(navigation_drawer_elements[position].equals("Empty Classroom")) {
+                QueriesManager.emptyClassroom(MainActivity.this);
+            }
             else {
                 Intent intent = new Intent(MainActivity.this, Classroom.class);
                 intent.putExtra("CLASSROOM_LABEL", navigation_drawer_elements[position]);
@@ -382,7 +388,7 @@ public class MainActivity extends AppCompatActivity
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
 
-            Log.d("BroadcastReceiver", "stocazzo");
+            Log.i("BroadcastReceiver", "intent: " + intent.getAction());
 
             // bluetooth status changed
             if(action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
@@ -423,6 +429,7 @@ public class MainActivity extends AppCompatActivity
                 // stop and restart the HeartbeatService/RecordingService with new data
                 stopService(new Intent(MainActivity.this, HeartbeatService.class));
                 stopService(new Intent(MainActivity.this, RecordingService.class));
+                // intents creation
                 Intent heartbeatServiceIntent = new Intent(MainActivity.this, HeartbeatService.class);
                 Intent recordingServiceIntent = new Intent(MainActivity.this, RecordingService.class);
                 classroom = intent.getStringExtra(EstimoteManager.CLASSROOM_CHANGED);
