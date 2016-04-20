@@ -1,9 +1,11 @@
 package it.gristeliti.smartu.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ public class LoginRegActivity extends AppCompatActivity {
     // views elements
     private Button signupButton;
     private Button loginButton;
+    private Button noteButton;  //aggiunto tom
     private EditText emailEditText;
     private EditText passwordEditText;
 
@@ -47,6 +50,7 @@ public class LoginRegActivity extends AppCompatActivity {
         passwordEditText = (EditText)findViewById(R.id.passwordLoginReg);
         loginButton = (Button)findViewById(R.id.login);
         signupButton = (Button)findViewById(R.id.signup);
+        noteButton = (Button)findViewById(R.id.note);   //aggiunto tom
 
         progressBar = (ProgressBar)findViewById(R.id.loginreg_progressbar);
 
@@ -112,6 +116,26 @@ public class LoginRegActivity extends AppCompatActivity {
                 startActivity(signupIntent);
             }
         });
+
+        // aggiunto tom -------------------------------------
+        noteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginRegActivity.this);
+                alertDialog.setTitle("Bluetooth advise");
+                alertDialog.setMessage("Once signed in, if the Bluetooth is turned off, you will be asked whether to turn it on: " +
+                        "you will be able to use the app only with Bluetooth turned on!");
+                alertDialog.setCancelable(true);
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface di, int w) {
+                        di.cancel();
+                    }
+                });
+                AlertDialog alert = alertDialog.create();
+                alert.show();
+            }
+        });
+        // ---------------------------------------------------
     }
 
     private boolean checkValidation() {
