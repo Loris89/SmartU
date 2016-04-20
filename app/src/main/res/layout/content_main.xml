@@ -85,7 +85,8 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/statusLayout">
+        android:layout_below="@+id/statusLayout"
+        android:scrollbarAlwaysDrawVerticalTrack="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -205,4 +206,14 @@
 
         </RelativeLayout>
     </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&lt;- Side Menu"
+        android:id="@+id/side_menu"
+        android:layout_alignBottom="@+id/welcome_label"
+        android:layout_alignLeft="@+id/hide_show_button"
+        android:layout_alignStart="@+id/hide_show_button"
+        style="@style/StatusText" />
 </RelativeLayout>
