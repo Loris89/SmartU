@@ -82,6 +82,23 @@
         style="@style/HideShowText"
         android:layout_below="@+id/welcome_label" />
 
+    <!--  aggiunto tom -->
+    <Button
+        android:id="@+id/help_button"
+        android:text="Help"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:background="@drawable/buttonshape"
+        style="@style/HideShowText"
+        android:layout_alignTop="@+id/hide_show_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="5dp"
+        />
+    <!---->
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
