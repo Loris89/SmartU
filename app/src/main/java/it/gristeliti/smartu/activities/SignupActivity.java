@@ -1,10 +1,12 @@
 package it.gristeliti.smartu.activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -98,76 +100,99 @@ public class SignupActivity extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // ------ aggiunto tom --------------------
+                ConnectivityManager conn;
+                NetworkInfo wifiInfo, cellInfo;
+                conn = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                wifiInfo = conn.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                cellInfo = conn.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
-                progressBar.setVisibility(View.VISIBLE);
+                if ( !(wifiInfo.isConnected() || cellInfo.isConnected()) )
+                    adviseNoInternetConnection();
+                // ----------------------------------------
+                else{
+                    progressBar.setVisibility(View.VISIBLE);
 
-                // check if the user has filled the form
-                if (!checkValidation()) {
-                    Toast.makeText(getBaseContext(), "Please fill the forms", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (!isProfessor(email.getText().toString()) && !isStudent(email.getText().toString())) {
-                    Toast.makeText(getBaseContext(), "Please fill the form with the istitutional email account", Toast.LENGTH_LONG).show();
-                    email.setError("Wrong email format");
-                    return;
-                }
-
-                nicknametxt = nickname.getText().toString();
-                passwordtxt = password.getText().toString();
-                emailtxt = email.getText().toString();
-                nametxt = name.getText().toString();
-                surnametxt = surname.getText().toString();
-                matriculatxt = matricula.getText().toString();
-
-                // update shared preferences
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(NICKNAME_KEY, nicknametxt);
-                editor.putString(PASSWORD_KEY, passwordtxt);
-                editor.putString(EMAIL_KEY, emailtxt);
-                editor.putString(NAME_KEY, nametxt);
-                editor.putString(SURNAME_KEY, surnametxt);
-                editor.putString(MATRICULA_KEY, matriculatxt);
-                editor.commit();
-
-                ParseUser user = new ParseUser();
-
-                user.setUsername(emailtxt);
-                user.setPassword(passwordtxt);
-                user.setEmail(emailtxt);
-                user.put("name", nametxt);
-                user.put("surname", surnametxt);
-                user.put("matricula", Integer.valueOf(matriculatxt)); // parse vuole un intero per la matricola, ma gli sto passando una stringa
-                user.put("nickname", nicknametxt);
-
-                if (isProfessor(emailtxt)) {
-                    user.put("isProfessor", true);
-                }
-
-                user.signUpInBackground(new SignUpCallback() {
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            progressBar.setVisibility(View.GONE);
-                            // Show a simple Toast message upon successful registration
-                            Toast.makeText(getApplicationContext(),
-                                    "Successfully Signed up, please log in.",
-                                    Toast.LENGTH_LONG).show();
-                            // torna alla schemata di login
-                            Intent intent = new Intent(SignupActivity.this, LoginRegActivity.class);
-                            intent.putExtra("EMAIL", emailtxt);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(),
-                                    e.toString(), Toast.LENGTH_LONG)
-                                    .show();
-                        }
+                    // check if the user has filled the form
+                    if (!checkValidation()) {
+                        Toast.makeText(getBaseContext(), "Please fill the forms", Toast.LENGTH_LONG).show();
+                        return;
                     }
-                });
+
+                    if (!isProfessor(email.getText().toString()) && !isStudent(email.getText().toString())) {
+                        Toast.makeText(getBaseContext(), "Please fill the form with the istitutional email account", Toast.LENGTH_LONG).show();
+                        email.setError("Wrong email format");
+                        return;
+                    }
+
+                    nicknametxt = nickname.getText().toString();
+                    passwordtxt = password.getText().toString();
+                    emailtxt = email.getText().toString();
+                    nametxt = name.getText().toString();
+                    surnametxt = surname.getText().toString();
+                    matriculatxt = matricula.getText().toString();
+
+                    // update shared preferences
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(NICKNAME_KEY, nicknametxt);
+                    editor.putString(PASSWORD_KEY, passwordtxt);
+                    editor.putString(EMAIL_KEY, emailtxt);
+                    editor.putString(NAME_KEY, nametxt);
+                    editor.putString(SURNAME_KEY, surnametxt);
+                    editor.putString(MATRICULA_KEY, matriculatxt);
+                    editor.commit();
+
+                    ParseUser user = new ParseUser();
+
+                    user.setUsername(emailtxt);
+                    user.setPassword(passwordtxt);
+                    user.setEmail(emailtxt);
+                    user.put("name", nametxt);
+                    user.put("surname", surnametxt);
+                    user.put("matricula", Integer.valueOf(matriculatxt)); // parse vuole un intero per la matricola, ma gli sto passando una stringa
+                    user.put("nickname", nicknametxt);
+
+                    if (isProfessor(emailtxt)) {
+                        user.put("isProfessor", true);
+                    }
+
+                    user.signUpInBackground(new SignUpCallback() {
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                progressBar.setVisibility(View.GONE);
+                                // Show a simple Toast message upon successful registration
+                                Toast.makeText(getApplicationContext(),
+                                        "Successfully Signed up, please log in.",
+                                        Toast.LENGTH_LONG).show();
+                                // torna alla schemata di login
+                                Intent intent = new Intent(SignupActivity.this, LoginRegActivity.class);
+                                intent.putExtra("EMAIL", emailtxt);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(),
+                                        e.toString(), Toast.LENGTH_LONG)
+                                        .show();
+                            }
+                        }
+                    });
+                }
             }
         });
     }
+
+    // ------- aggiunto tom --------------
+    private void adviseNoInternetConnection(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SignupActivity.this);
+        alertDialog.setTitle("Warning, no internet connection available, try again later...");
+        alertDialog.setMessage("Be sure you are connected to internet before proceeding...");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("OK", null);
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+    // ----------------------------------
 
     private boolean checkValidation() {
         boolean ret = true;
