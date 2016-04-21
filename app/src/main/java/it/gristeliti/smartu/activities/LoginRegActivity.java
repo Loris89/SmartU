@@ -1,9 +1,12 @@
 package it.gristeliti.smartu.activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -71,40 +74,52 @@ public class LoginRegActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // ------------ aggiiunto tom -------------------
+                ConnectivityManager conn;
+                NetworkInfo wifiInfo, cellInfo;
+                conn = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                wifiInfo = conn.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                cellInfo = conn.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
-                progressBar.setVisibility(View.VISIBLE);
+                if ( !(wifiInfo.isConnected() || cellInfo.isConnected()) )
+                    adviseNoInternetConnection();
+                // ----------------------------------------------
+                else {
+                    progressBar.setVisibility(View.VISIBLE);
 
-                // check if the user has filled the form
-                if(!checkValidation()) {
-                    Toast.makeText(getBaseContext(), "Please fill the forms", Toast.LENGTH_LONG).show();
-                    return;
+                    // check if the user has filled the form
+                    if(!checkValidation()) {
+                        Toast.makeText(getBaseContext(), "Please fill the forms", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    // retrieve the text entered from the EditText
+                    emailTxt = emailEditText.getText().toString();
+                    passwordTxt = passwordEditText.getText().toString();
+
+                    // update shared preferences
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(EMAIL_KEY, emailTxt);
+                    editor.putString(PASSWORD_KEY, passwordTxt);
+                    editor.commit();
+
+                    // send data to Parse.com for verification
+                    ParseUser.logInInBackground(emailTxt, passwordTxt, new LogInCallback() {
+                        public void done(ParseUser user, ParseException e) {
+                            if (user != null) {
+                                progressBar.setVisibility(View.GONE);
+                                Intent intent = new Intent(LoginRegActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(), "No such user exist, please signup",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 }
 
-                // retrieve the text entered from the EditText
-                emailTxt = emailEditText.getText().toString();
-                passwordTxt = passwordEditText.getText().toString();
-
-                // update shared preferences
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(EMAIL_KEY, emailTxt);
-                editor.putString(PASSWORD_KEY, passwordTxt);
-                editor.commit();
-
-                // send data to Parse.com for verification
-                ParseUser.logInInBackground(emailTxt, passwordTxt, new LogInCallback() {
-                    public void done(ParseUser user, ParseException e) {
-                        if (user != null) {
-                            progressBar.setVisibility(View.GONE);
-                            Intent intent = new Intent(LoginRegActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getApplicationContext(), "No such user exist, please signup",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
             }
         });
 
@@ -123,7 +138,11 @@ public class LoginRegActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginRegActivity.this);
                 alertDialog.setTitle("Bluetooth advise");
-                alertDialog.setMessage("Once signed in, if the Bluetooth is turned off, you will be asked whether to turn it on: " +
+                alertDialog.setMessage("The application aims at providing undergraduate students with a nice tool " +
+                        "of checking the status (classroom in which a lecture is held, " +
+                        "whether a classroom is lecture-free at a certain moment, the number of students in a classroom) " +
+                        "of the lectures/classrooms at the university.\n\n" +
+                        "Once signed in, if the Bluetooth is turned off, you will be asked whether to turn it on: " +
                         "you will be able to use the app only with Bluetooth turned on!");
                 alertDialog.setCancelable(true);
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -137,6 +156,18 @@ public class LoginRegActivity extends AppCompatActivity {
         });
         // ---------------------------------------------------
     }
+
+    // ------- aggiunto tom --------------
+    private void adviseNoInternetConnection(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginRegActivity.this);
+        alertDialog.setTitle("Warning, no internet connection available, try again later...");
+        alertDialog.setMessage("Be sure you are connected to internet before proceeding...");
+        alertDialog.setCancelable(true);
+        alertDialog.setNegativeButton("OK", null);
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+    // ----------------------------------
 
     private boolean checkValidation() {
         boolean ret = true;
