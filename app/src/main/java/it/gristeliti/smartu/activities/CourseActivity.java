@@ -2,8 +2,6 @@ package it.gristeliti.smartu.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,9 +14,6 @@ import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.gristeliti.smartu.R;
@@ -100,4 +95,11 @@ public class CourseActivity extends AppCompatActivity {
     private void setProfessorName() {
         QueriesManager.queryProfessor(course, professorName);
     }
+
+    // ------ aggiunto tom -------------
+    public void onBackPressed(){
+        startActivity(new Intent(this, MyCourses.class));
+        finish();
+    }
+    // -----------------------------------
 }
