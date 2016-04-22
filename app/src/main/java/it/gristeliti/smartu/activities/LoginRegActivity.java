@@ -138,12 +138,7 @@ public class LoginRegActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginRegActivity.this);
                 alertDialog.setTitle("Bluetooth advise");
-                alertDialog.setMessage("The application aims at providing undergraduate students with a nice tool " +
-                        "of checking the status (classroom in which a lecture is held, " +
-                        "whether a classroom is lecture-free at a certain moment, the number of students in a classroom) " +
-                        "of the lectures/classrooms at the university.\n\n" +
-                        "Once signed in, if the Bluetooth is turned off, you will be asked whether to turn it on: " +
-                        "you will be able to use the app only with Bluetooth turned on!");
+                alertDialog.setMessage(R.string.introduction);
                 alertDialog.setCancelable(true);
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int w) {
