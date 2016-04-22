@@ -171,9 +171,8 @@ public class SignupActivity extends AppCompatActivity {
                                 finish();
                             } else {
                                 progressBar.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(),
-                                        e.toString(), Toast.LENGTH_LONG)
-                                        .show();
+                                //Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), R.string.signup_failure, Toast.LENGTH_LONG).show();
                             }
                         }
                     });
