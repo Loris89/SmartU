@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
                 alertDialog.setTitle("Help");
-                alertDialog.setMessage("bbòjbjnds\njndasjajav\nsdvsbòvd\nsabòvdks\nbkdvaskj\nvdbfòbEF\nBòkabfòjkjAB\nSFJKòBasjf\nkòbASJKFBJA\nskbfkjaSBF\nKòAsbfkòBA\nSKFJBSAkòfba\nKòBFKò\nabkjòfAbbb");
+                alertDialog.setMessage(R.string.help);
                 alertDialog.setCancelable(true);
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int w) {
