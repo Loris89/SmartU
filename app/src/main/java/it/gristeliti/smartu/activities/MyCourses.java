@@ -2,16 +2,14 @@ package it.gristeliti.smartu.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,7 +25,6 @@ import java.util.List;
 
 import it.gristeliti.smartu.R;
 import it.gristeliti.smartu.utils.CourseFollowed;
-import it.gristeliti.smartu.utils.CourseNotFollowed;
 
 /**
  * Da questa Activity è possibile  selezionare i corsi che l'utente vuole
@@ -63,7 +60,7 @@ public class MyCourses extends AppCompatActivity {
                 Intent intent = new Intent(MyCourses.this, CourseActivity.class);
                 intent.putExtra(COURSE_KEY, course);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
     }
