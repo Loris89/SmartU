@@ -60,7 +60,7 @@ public class MyCourses extends AppCompatActivity {
                 Intent intent = new Intent(MyCourses.this, CourseActivity.class);
                 intent.putExtra(COURSE_KEY, course);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
     }
