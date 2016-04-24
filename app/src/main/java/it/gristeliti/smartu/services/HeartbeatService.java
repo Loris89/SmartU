@@ -86,7 +86,6 @@ public class HeartbeatService extends Service {
                 public void run() {
                     // query to Parse
                     queryUpdateAttending(classroom, ParseUser.getCurrentUser().getObjectId());
-                    //Log.i("HEARTBEAT", "query sent");
                 }
             });
         }
