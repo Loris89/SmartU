@@ -262,13 +262,6 @@ public class MainActivity extends AppCompatActivity
 
     protected void onPause() {
         super.onPause();
-        /*if (isBroadcastReceiverRegistered) {
-            unregisterReceiver(broadcastReceiver);
-            broadcastReceiver = null;
-            isBroadcastReceiverRegistered = false;
-        }*/
-
-        // Other onPause() code here
     }
 
     @Override
@@ -463,16 +456,16 @@ public class MainActivity extends AppCompatActivity
             }
 
             if(action.equals(EstimoteManager.CLEAR_ACTION)) {
-                // stop sending Heartbeat
+                // stop services
                 stopService(new Intent(MainActivity.this, HeartbeatService.class));
                 stopService(new Intent(MainActivity.this, RecordingService.class));
                 // clear textviews..
-                classroomTextView.setText("None");
-                professorTextView.setText("None");
-                lectureTextView.setText("None");
-                previousLectureTextView.setText("None");
-                nextLectureTextView.setText("None");
-                studentsTextView.setText("0");
+                classroomTextView.setText("");
+                professorTextView.setText("");
+                lectureTextView.setText("");
+                previousLectureTextView.setText("");
+                nextLectureTextView.setText("");
+                studentsTextView.setText("");
             }
         }
     }
