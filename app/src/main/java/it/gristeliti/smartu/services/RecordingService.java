@@ -84,6 +84,7 @@ public class RecordingService extends Service {
     @Override
     public void onDestroy() {
         mRecorder.stop();
+        mRecorder.reset();
         mRecorder.release();
         mRecorder  = null;
 
