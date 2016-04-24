@@ -117,6 +117,7 @@ public class EstimoteManager {
                         Log.i("EstimoteManager", "no beacon detected");
                         // if the myClearRunnable is not running, start it
                         if (!clearing) {
+                            Log.i("EstimoteManager", "clearing");
                             clearing = true;
                             beaconsHandler.postDelayed(clearRunnable, CLEAR_DELAY_MILLIS); // 20 sec (debug value)
                         }
@@ -139,6 +140,7 @@ public class EstimoteManager {
     // Stop beacons monitoring, and closes the service
     public static void stop() {
         try {
+            Log.i("EstimoteManager", "ranging stopped");
             beaconManager.stopRanging(ALL_ESTIMOTE_BEACONS_REGION);
             beaconManager.disconnect();
         } catch (Exception e) {
@@ -172,7 +174,7 @@ public class EstimoteManager {
                     intent.setAction(CLASSROOM_CHANGED_ACTION);
                     intent.putExtra(CLASSROOM_CHANGED, result);
                     currentContext.sendBroadcast(intent);
-                    Log.d("Classroom retrieved", result);
+                    Log.i("Classroom retrieved", result);
                 } else {
                     Log.e("Classroom retrieved", result);
                 }
