@@ -102,7 +102,14 @@ public class RecordingService extends Service {
             recordingHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    double amplitude = mRecorder.getMaxAmplitude();
+                    double amplitude = 0;
+                    try {
+                        amplitude = mRecorder.getMaxAmplitude();
+                    }
+                    catch(Exception e) {
+                        Log.e("RecordingService", e.getMessage());
+                    }
+                    //double amplitude = mRecorder.getMaxAmplitude(); // CHECK THIS OUT --> TALVOLTA DA ECCEZIONE QUANDO SI CHIUDE L'APP
                     decibels = (int) (20 * Math.log10(amplitude / 0.9));
                     if(classroom != null) {
                         Log.i("DECIBELS", "Classroom: " + classroom + " | decibels: " + decibels + " dB");
