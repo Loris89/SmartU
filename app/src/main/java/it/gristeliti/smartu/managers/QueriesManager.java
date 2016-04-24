@@ -82,7 +82,7 @@ public class QueriesManager {
         });
     }
 
-    public synchronized static void queryCourse(String classroom, final TextView professorTextView, final TextView courseTextView) {
+    public synchronized static void queryCourse(final String classroom, final TextView professorTextView, final TextView courseTextView) {
         HashMap<String, String> map = new HashMap<>();
         map.put("getClassroomName", classroom);
         ParseCloud.callFunctionInBackground("getCourseFromClassroom", map, new FunctionCallback<ParseObject>() {
@@ -126,6 +126,9 @@ public class QueriesManager {
                         // --> edit textview
                         Log.d("End lesson", end);
                         courseTextView.append("\nLesson ends at: " + end);
+
+                        // check if the professor of the lecture is in the classroom
+                        isProfessorTeaching(professor.getUsername(), classroom, professorTextView);
                     } catch (ParseException e) {
                         Log.e("Queries Manager Prof", e.getMessage());
                     }
@@ -133,6 +136,24 @@ public class QueriesManager {
                     Log.e("Queries Manager", parseException.getMessage());
                     professorTextView.setText("No Professor");
                     courseTextView.setText("No Lecture");
+                }
+            }
+        });
+    }
+
+    private synchronized static void isProfessorTeaching(String professor, String classroom, final TextView professorTextView) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("getProfessorName", professor);
+        map.put("getClassroom", classroom);
+        ParseCloud.callFunctionInBackground("checkProfessor", map, new FunctionCallback<Boolean>() {
+            @Override
+            public void done(Boolean result, ParseException parseException) {
+                if (parseException == null) {
+                    if(result) {
+                        professorTextView.append("\nProfessor is teaching");
+                    }
+                } else {
+                    Log.e("Queries Manager", parseException.getMessage());
                 }
             }
         });
