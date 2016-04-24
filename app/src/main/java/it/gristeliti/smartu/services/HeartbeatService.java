@@ -102,7 +102,6 @@ public class HeartbeatService extends Service {
                     //Log.d("HEARTBEAT", "heartbeat ok");
                 }else{
                     Log.e("Heartbeat", parseException.getMessage());
-                    Toast.makeText(HeartbeatService.this,"Error sending hearbeat", Toast.LENGTH_SHORT).show();
                 }
             }
         });
