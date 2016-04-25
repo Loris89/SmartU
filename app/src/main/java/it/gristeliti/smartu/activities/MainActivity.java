@@ -281,6 +281,8 @@ public class MainActivity extends AppCompatActivity
 
         // log-out from the system
         ParseUser.logOut();
+
+        Log.i("MainActivity", "onDestroy() called");
     }
 
     @Override
