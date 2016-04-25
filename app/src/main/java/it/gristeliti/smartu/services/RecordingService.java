@@ -83,13 +83,15 @@ public class RecordingService extends Service {
 
     @Override
     public void onDestroy() {
+        // removing timer
+        mTimer.cancel();
+        mTimer = null;
+
+        // removing recorder
         mRecorder.stop();
         mRecorder.reset();
         mRecorder.release();
         mRecorder  = null;
-
-        mTimer.cancel();
-        mTimer = null;
     }
 
     /**
