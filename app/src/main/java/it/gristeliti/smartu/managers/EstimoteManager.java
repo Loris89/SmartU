@@ -16,6 +16,7 @@ import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,14 +26,14 @@ public class EstimoteManager {
 
     /**
      * Time (ms) to wait before performing the queries
-     *
+     * <p/>
      * This is a debug value
      */
-    private static final int QUERIES_DELAY_MILLIS = 10000;
+    private static final int QUERIES_DELAY_MILLIS = 15000;
 
     /**
      * Time to wait before clearing the UI if no beacon is detected
-     *
+     * <p/>
      * This is a debug value
      */
     private static final int CLEAR_DELAY_MILLIS = 20000;
@@ -86,7 +87,7 @@ public class EstimoteManager {
                     // perform some operation on the list of beacon if this is not empty
                     // STO CAPTANDO QUALCHE BEACON
                     if (!beacons.isEmpty()) {
-                        Log.i("EstimoteManager", "beacon discovered!");
+                        //Log.i("EstimoteManager", "beacon discovered!");
                         // if myClearRunnable was running, then stop it
                         beaconsHandler.removeCallbacks(clearRunnable);
 
@@ -106,10 +107,10 @@ public class EstimoteManager {
                         // If the more recent UUID is different from the older one,
                         // restart the timer
                         if (!newUUID.equals(oldUUID)) {
+                            Log.i("EstimoteManager", "new beacon discovered!");
                             beaconsHandler.removeCallbacks(queriesRunnable);
                             beaconsHandler.postDelayed(queriesRunnable, QUERIES_DELAY_MILLIS);
                             oldUUID = newUUID; // update the oldID
-                            Log.d("BEACON MANAGER", "new beacon found: " + newUUID);
                         }
                     }
                     // NON STO CAPTANDO NESSUN BEACON
@@ -175,8 +176,25 @@ public class EstimoteManager {
                     intent.putExtra(CLASSROOM_CHANGED, result);
                     currentContext.sendBroadcast(intent);
                     Log.i("Classroom retrieved", result);
+                    createPresenceRecord(result);
                 } else {
                     Log.e("Classroom retrieved", result);
+                }
+            }
+        });
+    }
+
+    private static void createPresenceRecord(final String classroom) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("getUser", ParseUser.getCurrentUser().getObjectId());
+        map.put("getLabel", classroom);
+        ParseCloud.callFunctionInBackground("addPresenceRecord", map, new FunctionCallback<String>() {
+            @Override
+            public void done(String result, ParseException parseException) {
+                if (parseException == null) {
+                    Log.i("Estimote Manager", "Presence record added for the classroom " + classroom);
+                } else {
+                    Log.e("Estimote Manager", parseException.getMessage());
                 }
             }
         });
