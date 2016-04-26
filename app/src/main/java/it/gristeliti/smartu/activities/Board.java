@@ -27,6 +27,8 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import it.gristeliti.smartu.R;
 import it.gristeliti.smartu.utils.BoardMessage;
@@ -40,6 +42,15 @@ public class Board extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private String course;
+
+    // handler and timer
+    //private static Handler messagesHandler = new Handler();
+
+    // timer
+    private Timer mTimer = null;
+
+    // update interval
+    private static final int RECORD_INTERVAL = 20000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +75,30 @@ public class Board extends AppCompatActivity {
                 insertText.getText().clear();
             }
         });
+
+        // cancel if already existed
+        if (mTimer != null) {
+            mTimer.cancel();
+        } else {
+            // recreate new
+            mTimer = new Timer();
+        }
+
+        // schedule task
+        mTimer.scheduleAtFixedRate(new MessagesTimerTask(), 0, RECORD_INTERVAL);
+    }
+
+    private class MessagesTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            queryUpdateBoard(course);
+        }
     }
 
     protected void onStart() {
         super.onStart();
 
-        queryUpdateBoard(course);
+        //queryUpdateBoard(course);
 
         /*h.postDelayed(new Runnable() {
             public void run() {
@@ -81,6 +110,9 @@ public class Board extends AppCompatActivity {
 
     protected void onDestroy() {
         super.onDestroy();
+        // removing timer
+        mTimer.cancel();
+        mTimer = null;
     }
 
     private void queryUpdateBoard(String course) {
