@@ -3,13 +3,13 @@ package it.gristeliti.smartu.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,6 +73,8 @@ public class Board extends AppCompatActivity {
             public void onClick(View v) {
                 querySendMessage(insertText.getText().toString(), course, ParseUser.getCurrentUser().getObjectId());
                 insertText.getText().clear();
+                // aggiunto tom
+                hideSoftKeyboard(insertText);
             }
         });
 
@@ -87,6 +89,15 @@ public class Board extends AppCompatActivity {
         // schedule task
         mTimer.scheduleAtFixedRate(new MessagesTimerTask(), 0, RECORD_INTERVAL);
     }
+
+    // -------- aggiunto tom -------------
+    private void hideSoftKeyboard(EditText et){
+        if(getCurrentFocus()!=null && getCurrentFocus() instanceof EditText){
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
+        }
+    }
+    // --------------------------------------
 
     private class MessagesTimerTask extends TimerTask {
         @Override
