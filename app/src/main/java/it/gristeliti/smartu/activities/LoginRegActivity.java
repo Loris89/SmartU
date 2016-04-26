@@ -32,7 +32,7 @@ public class LoginRegActivity extends AppCompatActivity {
     // views elements
     private Button signupButton;
     private Button loginButton;
-    private Button noteButton;  //aggiunto tom
+    private Button noteButton;
     private EditText emailEditText;
     private EditText passwordEditText;
 
