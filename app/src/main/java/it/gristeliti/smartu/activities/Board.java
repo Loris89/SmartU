@@ -164,7 +164,8 @@ public class Board extends AppCompatActivity {
                 if (parseException == null) {
                     queryUpdateBoard(course);
                 } else {
-                    Toast.makeText(Board.this, parseException.getMessage(), Toast.LENGTH_LONG).show();
+                    // Toast.makeText(Board.this, parseException.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(Board.this, "You are not logged in, cannot send message!", Toast.LENGTH_LONG).show();
                 }
             }
         });
