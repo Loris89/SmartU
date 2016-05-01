@@ -43,9 +43,6 @@ public class Board extends AppCompatActivity {
 
     private String course;
 
-    // handler and timer
-    //private static Handler messagesHandler = new Handler();
-
     // timer
     private Timer mTimer = null;
 
@@ -108,15 +105,6 @@ public class Board extends AppCompatActivity {
 
     protected void onStart() {
         super.onStart();
-
-        //queryUpdateBoard(course);
-
-        /*h.postDelayed(new Runnable() {
-            public void run() {
-                queryUpdateBoard(course);
-                h.postDelayed(this, delay);
-            }
-        }, delay);*/
     }
 
     protected void onDestroy() {
@@ -129,7 +117,6 @@ public class Board extends AppCompatActivity {
     private void queryUpdateBoard(String course) {
         HashMap<String, String> map = new HashMap<>();
         map.put("getName", course);
-        final ArrayList<ParseObject> messages=new ArrayList<ParseObject>();
         ParseCloud.callFunctionInBackground("getMessages", map, new FunctionCallback<ArrayList<String>>() {
             @Override
             public void done(ArrayList<String> result, ParseException parseException) {
@@ -147,7 +134,8 @@ public class Board extends AppCompatActivity {
         List<BoardMessage> boardMessageList = new ArrayList<>();
         for(String mex : messages)  {
             String[] splitted = mex.split(";");
-            BoardMessage boardMessage = new BoardMessage(splitted[0], splitted[1], splitted[2]);
+            String nickname = splitted[0].replace(":","");
+            BoardMessage boardMessage = new BoardMessage(nickname, splitted[1], splitted[2]);
             boardMessageList.add(boardMessage);
         }
         listView.setAdapter(new ListAdapter(Board.this, boardMessageList));
@@ -164,7 +152,6 @@ public class Board extends AppCompatActivity {
                 if (parseException == null) {
                     queryUpdateBoard(course);
                 } else {
-                    // Toast.makeText(Board.this, parseException.getMessage(), Toast.LENGTH_LONG).show();
                     Toast.makeText(Board.this, "You are not logged in, cannot send message!", Toast.LENGTH_LONG).show();
                 }
             }
