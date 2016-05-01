@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:paddingTop="2dp"
-    android:weightSum="4">
+    android:paddingTop="2dp">
 
-    <TextView
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Nickname"
-        android:layout_marginLeft="3dp"
-        android:id="@+id/nickname_txt"
-        android:textColor="@color/colorPrimary"
-        android:layout_weight="1"/>
+        android:id="@+id/linear_id"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Nickname"
+            android:layout_marginLeft="3dp"
+            android:id="@+id/nickname_txt"
+            android:textColor="@color/colorPrimary"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/date_txt"
+            android:text="Date"
+            android:textSize="15dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/message_txt"
+        android:layout_below="@id/linear_id"
         android:text="Message"
         android:textSize="20dp"
-        android:textColor="@color/black"
-        android:layout_weight="2"/>
+        android:layout_marginLeft="3dp"
+        android:textColor="@color/black"/>
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/date_txt"
-        android:gravity="center"
-        android:text="Date"
-        android:textSize="10dp"
-        android:layout_weight="1"
-        />
-</LinearLayout>
+</RelativeLayout>
