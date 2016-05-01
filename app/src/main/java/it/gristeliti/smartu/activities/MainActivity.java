@@ -30,8 +30,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
+import com.parse.LogOutCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
@@ -279,8 +282,8 @@ public class MainActivity extends AppCompatActivity
         stopService(new Intent(MainActivity.this, HeartbeatService.class));
         stopService(new Intent(MainActivity.this, RecordingService.class));
 
-        // log-out from the system
-        ParseUser.logOut();
+        // logs out the user from the system
+        logOut();
 
         Log.i("MainActivity", "onDestroy() called");
     }
@@ -299,6 +302,15 @@ public class MainActivity extends AppCompatActivity
                 rangingLabel.setText("Ranging: OFF");
             }
         }
+    }
+
+    private void logOut() {
+        ParseUser.logOutInBackground(new LogOutCallback() {
+            @Override
+            public void done(ParseException e) {
+                Toast.makeText(MainActivity.this, "log out done", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -330,7 +342,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.action_logout) {
-            ParseUser.logOut();
+            logOut();
             Intent intent = new Intent(MainActivity.this, LoginRegActivity.class);
             startActivity(intent);
             finish();
