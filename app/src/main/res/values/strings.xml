@@ -32,7 +32,7 @@
     <string name="signup_failure">ERROR! E-mail address inserted already exists. Sign up with another e-mail address.</string>
 
     <string name="label_menu_1">SmartU</string>
-    <string name="label_menu_2">griseliti4</string>
+    <!--<string name="label_menu_2">griseliti4</string>-->
 
     <string name="introduction">The application aims at providing undergraduate students with a nice tool
                                 of checking the status (classroom in which a lecture is held,
