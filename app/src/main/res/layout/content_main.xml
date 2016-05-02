@@ -220,17 +220,7 @@
                 android:layout_below="@id/students_label"
                 android:background="@color/main_data_color"
                 style="@style/MainText" />
-
         </RelativeLayout>
     </ScrollView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="&lt;- Side Menu"
-        android:id="@+id/side_menu"
-        android:layout_alignBottom="@+id/welcome_label"
-        android:layout_alignLeft="@+id/hide_show_button"
-        android:layout_alignStart="@+id/hide_show_button"
-        style="@style/StatusText" />
 </RelativeLayout>
