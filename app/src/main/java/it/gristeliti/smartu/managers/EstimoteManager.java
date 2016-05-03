@@ -8,14 +8,9 @@ import android.util.Log;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
-import com.estimote.sdk.eddystone.Eddystone;
-import com.estimote.sdk.eddystone.EddystoneTelemetry;
 import com.parse.FunctionCallback;
-import com.parse.GetCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.HashMap;
@@ -178,7 +173,7 @@ public class EstimoteManager {
                     Log.i("Classroom retrieved", result);
                     createPresenceRecord(result);
                 } else {
-                    Log.e("Classroom retrieved", result);
+                    Log.e("Classroom retrieved", parseException.getMessage());
                 }
             }
         });
