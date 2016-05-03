@@ -137,7 +137,7 @@ public class LoginRegActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(LoginRegActivity.this);
-                alertDialog.setTitle("Bluetooth advise");
+                alertDialog.setTitle("SmartU");
                 alertDialog.setMessage(R.string.introduction);
                 alertDialog.setCancelable(true);
                 alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
