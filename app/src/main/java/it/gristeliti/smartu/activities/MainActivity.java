@@ -34,7 +34,6 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.LogOutCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
@@ -308,7 +307,7 @@ public class MainActivity extends AppCompatActivity
         ParseUser.logOutInBackground(new LogOutCallback() {
             @Override
             public void done(ParseException e) {
-                Toast.makeText(MainActivity.this, "log out done", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Log-out done.", Toast.LENGTH_SHORT).show();
             }
         });
     }
