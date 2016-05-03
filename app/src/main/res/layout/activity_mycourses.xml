@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mycourses_txt"
-        android:text="Your Courses"
+        android:text="My Courses"
         android:textSize="30dp"
         android:textColor="@color/colorPrimary"
         android:layout_alignParentTop="true"
