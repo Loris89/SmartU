@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -68,10 +67,14 @@ public class Board extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                querySendMessage(insertText.getText().toString(), course, ParseUser.getCurrentUser().getObjectId());
-                insertText.getText().clear();
-                // aggiunto tom
-                hideSoftKeyboard(insertText);
+                String mex = insertText.getText().toString();
+                if (textNotEmpty(mex)) {    // ----> tom
+                    querySendMessage(mex, course, ParseUser.getCurrentUser().getObjectId());
+                    insertText.getText().clear();
+                    // aggiunto tom
+                    hideSoftKeyboard(insertText);
+                }
+                else return;
             }
         });
 
@@ -86,6 +89,17 @@ public class Board extends AppCompatActivity {
         // schedule task
         mTimer.scheduleAtFixedRate(new MessagesTimerTask(), 0, RECORD_INTERVAL);
     }
+
+    // ---------- aggiunto tom ----------
+    private boolean textNotEmpty(String text){
+        boolean bol = false;
+        for (int i = 0; i < text.length(); i++)
+            if (text.charAt(i) != ' ')
+                return true;
+            else continue;
+        return false;
+    }
+    // ------------------------------------
 
     // -------- aggiunto tom -------------
     private void hideSoftKeyboard(EditText et){
