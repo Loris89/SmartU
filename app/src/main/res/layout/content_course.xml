@@ -18,7 +18,8 @@
         android:text="Name"
         style="@style/MainData"
         android:layout_below="@+id/course"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
 
     <TextView
         android:id="@+id/course_text"
