@@ -16,16 +16,13 @@
     <string name="Name">Name</string>
     <string name="Surname">Surname</string>
     <string name="title_activity_main_activity_test">MainActivityTest</string>
-    <string name="title_section1">Tunonno</string>
-    <string name="title_section2">Tumadre</string>
-    <string name="title_section3">SborramiNegliOcchi</string>
     <string name="action_example">Example action</string>
     <string name="logout">Logout</string>
     <string name="welcome">Welcome</string>
     <string name="title_activity_classroom">Classroom</string>
-    <string name="title_activity_notice_board">NoticeBoard</string>
+    <string name="title_activity_notice_board">SmartU</string>
     <string name="title_activity_board">Board</string>
-    <string name="title_activity_course">CourseActivity</string>
+    <string name="title_activity_course">SmartU</string>
     <string name="logout_string">LogOut</string>
     <string name="title_activity_test">Test</string>
 
