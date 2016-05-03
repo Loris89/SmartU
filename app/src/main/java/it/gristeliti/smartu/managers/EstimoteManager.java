@@ -177,7 +177,7 @@ public class EstimoteManager {
                 }
             }
         });
-    }
+    }//
 
     private static void createPresenceRecord(final String classroom) {
         HashMap<String, String> map = new HashMap<>();
